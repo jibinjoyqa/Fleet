@@ -1,0 +1,2697 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduBB — School Fleet Management System</title>
+    <meta name="description"
+        content="Enterprise-grade school fleet management and student transport system. Track buses, mileage, fuel costs, and student transport fees.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- ======== SIDEBAR ======== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon"><i class="fas fa-bus"></i></div>
+                <div class="brand-text">
+                    <span class="brand-name">EduBB</span>
+                    <span class="brand-sub">School Transport ERP</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">Main</div>
+                <a class="nav-item active" data-page="dashboard" id="nav-dashboard">
+                    <span class="nav-icon"><i class="fas fa-th-large"></i></span> Dashboard
+                </a>
+                <a class="nav-item" data-page="fleet" id="nav-fleet">
+                    <span class="nav-icon"><i class="fas fa-bus-alt"></i></span> Fleet Overview
+                </a>
+                <a class="nav-item" data-page="buses" id="nav-buses">
+                    <span class="nav-icon"><i class="fas fa-shuttle-van"></i></span> Bus Management
+                </a>
+                <a class="nav-item" data-page="mileage" id="nav-mileage">
+                    <span class="nav-icon"><i class="fas fa-tachometer-alt"></i></span> Mileage Tracking
+                    <span class="nav-badge">3</span>
+                </a>
+                <a class="nav-item" data-page="fuel" id="nav-fuel">
+                    <span class="nav-icon"><i class="fas fa-gas-pump"></i></span> Fuel Logs
+                </a>
+                <div class="nav-section-label">Transport</div>
+                <a class="nav-item" data-page="students" id="nav-students">
+                    <span class="nav-icon"><i class="fas fa-user-graduate"></i></span> Student Transport
+                </a>
+                <a class="nav-item" data-page="fees" id="nav-fees">
+                    <span class="nav-icon"><i class="fas fa-rupee-sign"></i></span> Fee Management
+                </a>
+                <a class="nav-item" data-page="routes" id="nav-routes">
+                    <span class="nav-icon"><i class="fas fa-route"></i></span> Route Management
+                </a>
+                <a class="nav-item" data-page="tracking" id="nav-tracking">
+                    <span class="nav-icon"><i class="fas fa-map-marked-alt"></i></span> Live Tracking
+                    <span class="nav-badge live-pulse">LIVE</span>
+                </a>
+                <a class="nav-item" data-page="drivers" id="nav-drivers">
+                    <span class="nav-icon"><i class="fas fa-id-card"></i></span> Driver Management
+                </a>
+                <div class="nav-section-label">Operations</div>
+                <a class="nav-item" data-page="maintenance" id="nav-maintenance">
+                    <span class="nav-icon"><i class="fas fa-wrench"></i></span> Maintenance
+                    <span class="nav-badge">4</span>
+                </a>
+                <a class="nav-item" data-page="attendance" id="nav-attendance">
+                    <span class="nav-icon"><i class="fas fa-clipboard-check"></i></span> Attendance & Safety
+                </a>
+                <a class="nav-item" data-page="trips" id="nav-trips">
+                    <span class="nav-icon"><i class="fas fa-shuttle-van"></i></span> Special Trips
+                </a>
+                <a class="nav-item" data-page="incidents" id="nav-incidents">
+                    <span class="nav-icon"><i class="fas fa-exclamation-triangle"></i></span> Incidents
+                </a>
+                <a class="nav-item" data-page="communication" id="nav-communication">
+                    <span class="nav-icon"><i class="fas fa-comments"></i></span> Communication
+                </a>
+                <div class="nav-section-label">Admin & Compliance</div>
+                <a class="nav-item" data-page="vault" id="nav-vault">
+                    <span class="nav-icon"><i class="fas fa-folder-open"></i></span> Document Vault
+                </a>
+                <a class="nav-item" data-page="vendors" id="nav-vendors">
+                    <span class="nav-icon"><i class="fas fa-handshake"></i></span> Vendor Management
+                </a>
+                <a class="nav-item" data-page="inventory" id="nav-inventory">
+                    <span class="nav-icon"><i class="fas fa-boxes"></i></span> Parts & Inventory
+                </a>
+                <a class="nav-item" data-page="devices" id="nav-devices">
+                    <span class="nav-icon"><i class="fas fa-satellite-dish"></i></span> IT & Hardware
+                </a>
+                <a class="nav-item" data-page="hr" id="nav-hr">
+                    <span class="nav-icon"><i class="fas fa-users-cog"></i></span> HR & Payroll
+                </a>
+                <a class="nav-item" data-page="optimizer" id="nav-optimizer">
+                    <span class="nav-icon"><i class="fas fa-project-diagram"></i></span> Route Optimizer
+                    <span class="nav-badge" style="background:var(--success-500)">AI</span>
+                </a>
+                <div class="nav-section-label">Insights</div>
+                <a class="nav-item" data-page="performance" id="nav-performance">
+                    <span class="nav-icon"><i class="fas fa-tachometer-alt"></i></span> Driver Performance
+                </a>
+                <a class="nav-item" data-page="analytics" id="nav-analytics">
+                    <span class="nav-icon"><i class="fas fa-chart-pie"></i></span> Reports & Analytics
+                </a>
+                <a class="nav-item" data-page="budget" id="nav-budget">
+                    <span class="nav-icon"><i class="fas fa-wallet"></i></span> Budget & Finance
+                </a>
+                <a class="nav-item" data-page="alerts" id="nav-alerts">
+                    <span class="nav-icon"><i class="fas fa-bell"></i></span> Alerts
+                    <span class="nav-badge">5</span>
+                </a>
+                <a class="nav-item" data-page="settings" id="nav-settings">
+                    <span class="nav-icon"><i class="fas fa-cog"></i></span> Settings
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar">RK</div>
+                    <div class="user-info">
+                        <div class="user-name">Rajesh Kumar</div>
+                        <div class="user-role">Fleet Admin</div>
+                    </div>
+                    <i class="fas fa-ellipsis-v" style="color:var(--text-tertiary);font-size:14px;"></i>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ======== MAIN CONTENT ======== -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+                    <div class="header-search">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" placeholder="Search buses, students, routes..." id="globalSearch">
+                    </div>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-badge">
+                        <div class="stat-dot" style="background:var(--primary-500)"></div>Total Buses <span
+                            class="stat-value">24</span>
+                    </div>
+                    <div class="stat-badge">
+                        <div class="stat-dot" style="background:var(--success-500)"></div>Students <span
+                            class="stat-value">1,248</span>
+                    </div>
+                    <div class="stat-badge">
+                        <div class="stat-dot" style="background:var(--warning-500)"></div>Avg Mileage <span
+                            class="stat-value">6.2 km/l</span>
+                    </div>
+                    <div class="stat-badge">
+                        <div class="stat-dot" style="background:var(--success-500)"></div>Revenue <span
+                            class="stat-value">₹18.4L</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="theme-toggle" id="themeToggle" data-tooltip="Toggle Dark Mode"><i
+                            class="fas fa-moon"></i></button>
+                    <button class="header-icon-btn" data-tooltip="Notifications"><i class="fas fa-bell"></i><span
+                            class="notification-dot"></span></button>
+                    <button class="header-icon-btn" data-tooltip="Messages"><i class="fas fa-envelope"></i></button>
+                    <div class="header-avatar" data-tooltip="Profile">RK</div>
+                </div>
+            </header>
+
+            <!-- ======== DASHBOARD PAGE ======== -->
+            <div class="page-content">
+                <div class="page-view active" id="page-dashboard">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Dashboard</h1>
+                            <p class="page-subtitle">Welcome back, Rajesh. Here's your fleet overview for March 2026.
+                            </p>
+                        </div>
+                        <div class="page-actions">
+                            <button class="btn btn-secondary"><i class="fas fa-download"></i> Export</button>
+                            <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Bus</button>
+                        </div>
+                    </div>
+
+                    <!-- Metric Cards (original layout) -->
+                    <div class="metrics-grid">
+                        <div class="metric-card blue animate-slide-up animate-slide-up-delay-1">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-bus"></i></div>
+                                <span class="metric-change up">↑ 8%</span>
+                            </div>
+                            <div class="metric-value">24</div>
+                            <div class="metric-label">Total Buses</div>
+                        </div>
+                        <div class="metric-card green animate-slide-up animate-slide-up-delay-2">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-check-circle"></i></div>
+                                <span class="metric-change up">↑ 4%</span>
+                            </div>
+                            <div class="metric-value">21</div>
+                            <div class="metric-label">Active Buses</div>
+                        </div>
+                        <div class="metric-card amber animate-slide-up animate-slide-up-delay-3">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-tools"></i></div>
+                                <span class="metric-change down">↑ 1</span>
+                            </div>
+                            <div class="metric-value">3</div>
+                            <div class="metric-label">Under Maintenance</div>
+                        </div>
+                        <div class="metric-card purple animate-slide-up animate-slide-up-delay-4">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                <span class="metric-change up">↑ 3%</span>
+                            </div>
+                            <div class="metric-value">6.2</div>
+                            <div class="metric-label">Fleet Avg Mileage (km/l)</div>
+                        </div>
+                        <div class="metric-card red animate-slide-up animate-slide-up-delay-5">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-gas-pump"></i></div>
+                                <span class="metric-change down">↑ 12%</span>
+                            </div>
+                            <div class="metric-value">₹4.8L</div>
+                            <div class="metric-label">Monthly Fuel Cost</div>
+                        </div>
+                        <div class="metric-card teal animate-slide-up animate-slide-up-delay-6">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-rupee-sign"></i></div>
+                                <span class="metric-change up">↑ 15%</span>
+                            </div>
+                            <div class="metric-value">₹18.4L</div>
+                            <div class="metric-label">Transport Revenue</div>
+                        </div>
+                    </div>
+
+                    <!-- Mileage Table + Charts (original) -->
+                    <div class="content-grid grid-7-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-tachometer-alt"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Mileage Monitoring</h3>
+                                <button class="btn btn-sm btn-secondary">View All</button>
+                            </div>
+                            <div class="data-table-wrapper">
+                                <table class="data-table" id="mileageTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Bus No.</th>
+                                            <th>Seats</th>
+                                            <th>Expected</th>
+                                            <th>Actual</th>
+                                            <th>Efficiency</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-line"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Mileage Trend</h3>
+                                <div class="tabs-bar" style="margin-bottom:0;">
+                                    <button class="tab-btn active">Weekly</button>
+                                    <button class="tab-btn">Monthly</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container"><canvas id="mileageTrendChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profitability + Alerts (original) -->
+                    <div class="content-grid grid-5-7">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-bar"
+                                        style="color:var(--success-500);margin-right:8px;"></i>Bus Profitability — Bus
+                                    101</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="profit-metric"><span class="profit-label">Cost per KM</span><span
+                                        class="profit-value">₹18.50</span></div>
+                                <div class="profit-metric"><span class="profit-label">Cost per Student / KM</span><span
+                                        class="profit-value">₹0.74</span></div>
+                                <div class="profit-metric"><span class="profit-label">Break-even Occupancy</span><span
+                                        class="profit-value">18 students</span></div>
+                                <div class="profit-metric">
+                                    <span class="profit-label">Occupancy Rate</span>
+                                    <div
+                                        style="display:flex;align-items:center;gap:10px;flex:1;justify-content:flex-end">
+                                        <div class="progress-bar" style="width:140px">
+                                            <div class="progress-fill green" style="width:88%"></div>
+                                        </div>
+                                        <span class="progress-text">88%</span>
+                                    </div>
+                                </div>
+                                <div class="profit-metric">
+                                    <span class="profit-label">Monthly P&L</span>
+                                    <span class="badge-profit positive"><i class="fas fa-arrow-up"></i> ₹24,500
+                                        Profit</span>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="profit-metric"><span class="profit-label">Revenue / Month</span><span
+                                        class="profit-value">₹78,000</span></div>
+                                <div class="profit-metric"><span class="profit-label">Total Cost / Month</span><span
+                                        class="profit-value">₹53,500</span></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-exclamation-triangle"
+                                        style="color:var(--warning-500);margin-right:8px;"></i>Active Alerts</h3>
+                                <span class="status-badge critical"><span class="status-dot"></span>5 Active</span>
+                            </div>
+                            <div class="card-body" id="alertsContainer"></div>
+                        </div>
+                    </div>
+
+                    <!-- Revenue Chart (original) -->
+                    <div class="content-grid grid-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-area"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Revenue vs Fuel Cost</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container"><canvas id="revenueFuelChart"></canvas></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-bar"
+                                        style="color:var(--success-500);margin-right:8px;"></i>Bus-wise Profitability
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container"><canvas id="busProfitChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional summary from new dashboard: Income vs Expense + Driver Rankings + Financial Overview -->
+                    <div class="content-grid grid-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-line"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Income vs Expense</h3>
+                                <button class="btn btn-sm btn-secondary"><i class="fas fa-chart-area"></i> View
+                                    Analytics</button>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container tall"><canvas id="incomeExpenseChart"></canvas></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-users"
+                                        style="color:var(--warning-500);margin-right:8px;"></i>Driver Rankings &
+                                    Financial Overview</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="content-grid grid-2" style="margin-bottom:0">
+                                    <div>
+                                        <div class="data-table-wrapper">
+                                            <table class="data-table data-table-compact" id="driverRankingsTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Driver</th>
+                                                        <th>On-time %</th>
+                                                        <th>Trips</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                        <div class="card-footer best-driver-banner" style="border-top:none;padding-left:0">
+                                            <i class="fas fa-trophy"></i>
+                                            <span>Best Driver of the Month: <strong id="bestDriverName">—</strong></span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="mini-chart-title">Income & Expense Breakdown</div>
+                                        <div class="financial-grid">
+                                            <div class="mini-chart">
+                                                <div class="mini-chart-title">Income</div>
+                                                <div class="chart-container short"><canvas
+                                                        id="incomeBreakdownChart"></canvas></div>
+                                                <div class="mini-legend" id="incomeBreakdownLegend"></div>
+                                            </div>
+                                            <div class="mini-chart">
+                                                <div class="mini-chart-title">Expense</div>
+                                                <div class="chart-container short"><canvas
+                                                        id="expenseBreakdownChart"></canvas></div>
+                                                <div class="mini-legend" id="expenseBreakdownLegend"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== STUDENT TRANSPORT PAGE ======== -->
+                <div class="page-view" id="page-students">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Student Transport</h1>
+                            <p class="page-subtitle">Manage student assignments, fees, and transport routes.</p>
+                        </div>
+                        <div class="page-actions">
+                            <button class="btn btn-secondary"><i class="fas fa-file-export"></i> Export</button>
+                            <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Student</button>
+                        </div>
+                    </div>
+                    <div class="student-profile-card">
+                        <div class="student-avatar-lg">AP</div>
+                        <div>
+                            <div class="student-name">Aarav Patel</div>
+                            <div class="student-meta">Class 8-B &bull; ID: STU-2026-0451 &bull; Route: Green Valley -
+                                Sector 22</div>
+                        </div>
+                    </div>
+                    <div class="content-grid grid-7-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-sliders-h"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Fee Calculator</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="content-grid grid-2" style="margin-bottom:0">
+                                    <div>
+                                        <div class="form-group"><label class="form-label">Assigned Bus</label><select
+                                                class="form-select" id="busAssignment">
+                                                <option>Bus 101 — 25 Seater</option>
+                                                <option>Bus 202 — 30 Seater</option>
+                                                <option>Bus 303 — 45 Seater</option>
+                                                <option>Bus 404 — 30 Seater</option>
+                                            </select></div>
+                                        <div class="form-group"><label class="form-label">Distance (One Way)
+                                                km</label><input type="number" class="form-input" value="12.5"
+                                                id="distanceInput"></div>
+                                        <div class="form-group"><label class="form-label">Round Trip
+                                                (Auto)</label><input type="text" class="form-input" value="25.0 km"
+                                                readonly id="roundTrip"></div>
+                                        <div class="form-group"><label class="form-label">School Days /
+                                                Month</label><input type="number" class="form-input" value="24"
+                                                id="schoolDays"></div>
+                                    </div>
+                                    <div>
+                                        <div class="form-group">
+                                            <label class="form-label">Profit Margin: <span
+                                                    id="marginValue">25%</span></label>
+                                            <input type="range" class="range-slider" min="5" max="50" value="25"
+                                                id="profitMargin">
+                                        </div>
+                                        <div class="suggested-fee-card">
+                                            <div class="fee-label">Suggested Monthly Fee</div>
+                                            <div class="fee-amount" id="suggestedFee">₹3,250</div>
+                                            <div class="fee-label">Including 25% margin</div>
+                                        </div>
+                                        <div style="margin-top:16px;">
+                                            <label class="toggle-switch"><input type="checkbox"
+                                                    id="manualOverride"><span class="toggle-track"></span><span
+                                                    class="toggle-label">Manual Override</span></label>
+                                        </div>
+                                        <div style="margin-top:16px;"><button class="btn btn-success"
+                                                style="width:100%"><i class="fas fa-file-invoice"></i> Generate
+                                                Invoice</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-pie"
+                                        style="color:var(--warning-500);margin-right:8px;"></i>Impact on Bus
+                                    Profitability</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="profit-metric"><span class="profit-label">Current Occupancy</span><span
+                                        class="profit-value">22 / 25</span></div>
+                                <div class="profit-metric"><span class="profit-label">Revenue After Add</span><span
+                                        class="profit-value">₹81,250</span></div>
+                                <div class="profit-metric"><span class="profit-label">Net Profit Change</span><span
+                                        class="badge-profit positive"><i class="fas fa-arrow-up"></i> +₹3,250</span>
+                                </div>
+                                <div class="profit-metric">
+                                    <span class="profit-label">Occupancy After</span>
+                                    <div
+                                        style="display:flex;align-items:center;gap:10px;flex:1;justify-content:flex-end">
+                                        <div class="progress-bar" style="width:120px">
+                                            <div class="progress-fill green" style="width:92%"></div>
+                                        </div>
+                                        <span class="progress-text">92%</span>
+                                    </div>
+                                </div>
+                                <div class="divider"></div>
+                                <h4
+                                    style="font-size:13px;font-weight:600;margin-bottom:12px;color:var(--text-primary);">
+                                    Fee History</h4>
+                                <div class="fee-history-row"><span
+                                        style="font-size:13px;color:var(--text-secondary)">Mar 2026</span><span
+                                        style="font-weight:600;color:var(--text-primary)">₹3,250</span><span
+                                        class="status-badge good"><span class="status-dot"></span>Paid</span></div>
+                                <div class="fee-history-row"><span
+                                        style="font-size:13px;color:var(--text-secondary)">Feb 2026</span><span
+                                        style="font-weight:600;color:var(--text-primary)">₹3,250</span><span
+                                        class="status-badge good"><span class="status-dot"></span>Paid</span></div>
+                                <div class="fee-history-row"><span
+                                        style="font-size:13px;color:var(--text-secondary)">Jan 2026</span><span
+                                        style="font-weight:600;color:var(--text-primary)">₹3,100</span><span
+                                        class="status-badge warning"><span class="status-dot"></span>Partial</span>
+                                </div>
+                                <div class="fee-history-row"><span
+                                        style="font-size:13px;color:var(--text-secondary)">Dec 2025</span><span
+                                        style="font-weight:600;color:var(--text-primary)">₹3,100</span><span
+                                        class="status-badge good"><span class="status-dot"></span>Paid</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== ANALYTICS PAGE ======== -->
+                <div class="page-view" id="page-analytics">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Reports & Analytics</h1>
+                            <p class="page-subtitle">Comprehensive fleet performance insights and financial analytics.
+                            </p>
+                        </div>
+                        <div class="page-actions"><button class="btn btn-secondary"><i class="fas fa-calendar-alt"></i>
+                                Mar 2026</button><button class="btn btn-primary"><i class="fas fa-download"></i>
+                                Download PDF</button></div>
+                    </div>
+                    <div class="content-grid grid-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-area"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Revenue vs Fuel Cost
+                                    Trend</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container tall"><canvas id="analyticsRevenueChart"></canvas></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-bar"
+                                        style="color:var(--success-500);margin-right:8px;"></i>Mileage Efficiency
+                                    Comparison</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container tall"><canvas id="analyticsMileageChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-grid grid-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-balance-scale"
+                                        style="color:var(--warning-500);margin-right:8px;"></i>Bus-wise Profitability
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container tall"><canvas id="analyticsProfitChart"></canvas></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-bullseye"
+                                        style="color:var(--danger-500);margin-right:8px;"></i>Break-even Analysis</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container tall"><canvas id="analyticsBreakevenChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== ALERTS PAGE ======== -->
+                <div class="page-view" id="page-alerts">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Alerts & Notifications</h1>
+                            <p class="page-subtitle">Active fleet alerts requiring attention.</p>
+                        </div>
+                        <div class="page-actions"><button class="btn btn-secondary"><i class="fas fa-check-double"></i>
+                                Mark All Read</button></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body" id="alertsPageContainer"></div>
+                    </div>
+                </div>
+
+                <!-- ======== BUDGET & FINANCE PAGE ======== -->
+                <div class="page-view" id="page-budget">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Budget & Finance</h1>
+                            <p class="page-subtitle">Track planned vs actual costs and route profitability.</p>
+                        </div>
+                        <div class="page-actions">
+                            <button class="btn btn-secondary"><i class="fas fa-file-export"></i> Export</button>
+                            <button class="btn btn-primary"><i class="fas fa-rupee-sign"></i> Adjust Fees</button>
+                        </div>
+                    </div>
+                    <div class="content-grid grid-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-balance-scale"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Monthly Budget vs
+                                    Actual</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container tall"><canvas id="budgetVarianceChart"></canvas></div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="profit-metric">
+                                    <span class="profit-label">YTD Variance</span>
+                                    <span class="badge-profit positive" id="budgetYtdBadge"><i
+                                            class="fas fa-arrow-up"></i> On Track</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-list-alt"
+                                        style="color:var(--success-500);margin-right:8px;"></i>Cost Breakdown</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="data-table-wrapper">
+                                    <table class="data-table" id="budgetCategoryTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Category</th>
+                                                <th>Planned (₹)</th>
+                                                <th>Actual (₹)</th>
+                                                <th>Variance</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== FLEET OVERVIEW PAGE ======== -->
+                <div class="page-view" id="page-fleet">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Fleet Overview</h1>
+                            <p class="page-subtitle">Complete view of your fleet assets and operational status.</p>
+                        </div>
+                        <div class="page-actions">
+                            <button class="btn btn-secondary"><i class="fas fa-filter"></i> Filter</button>
+                            <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Vehicle</button>
+                        </div>
+                    </div>
+                    <div class="metrics-grid" id="fleetMetrics"></div>
+                    <div class="content-grid grid-7-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-bus"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Fleet Inventory</h3>
+                                <div class="tabs-bar" style="margin-bottom:0"><button
+                                        class="tab-btn active">All</button><button
+                                        class="tab-btn">Active</button><button class="tab-btn">Maintenance</button>
+                                </div>
+                            </div>
+                            <div class="data-table-wrapper">
+                                <table class="data-table" id="fleetTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Bus No.</th>
+                                            <th>Type</th>
+                                            <th>Capacity</th>
+                                            <th>Driver</th>
+                                            <th>Route</th>
+                                            <th>Status</th>
+                                            <th>Last Service</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-pie"
+                                        style="color:var(--success-500);margin-right:8px;"></i>Fleet Status Distribution
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container"><canvas id="fleetStatusChart"></canvas></div>
+                            </div>
+                            <div class="card-footer">
+                                <div style="display:flex;justify-content:space-around;text-align:center">
+                                    <div>
+                                        <div style="font-size:20px;font-weight:800;color:var(--success-500)">21</div>
+                                        <div style="font-size:11px;color:var(--text-tertiary)">Active</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-size:20px;font-weight:800;color:var(--warning-500)">1</div>
+                                        <div style="font-size:11px;color:var(--text-tertiary)">Service Due</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-size:20px;font-weight:800;color:var(--danger-500)">2</div>
+                                        <div style="font-size:11px;color:var(--text-tertiary)">Maintenance</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== BUS MANAGEMENT PAGE ======== -->
+                <div class="page-view" id="page-buses">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Bus Management</h1>
+                            <p class="page-subtitle">Manage individual bus details, documents, and maintenance
+                                schedules.</p>
+                        </div>
+                        <div class="page-actions"><button class="btn btn-secondary"><i class="fas fa-file-export"></i>
+                                Export</button><button class="btn btn-primary"><i class="fas fa-plus"></i> Register
+                                Bus</button></div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card blue">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-bus"></i></div><span
+                                    class="metric-change up">↑ 2</span>
+                            </div>
+                            <div class="metric-value">24</div>
+                            <div class="metric-label">Total Registered</div>
+                        </div>
+                        <div class="metric-card green">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-certificate"></i></div>
+                            </div>
+                            <div class="metric-value">22</div>
+                            <div class="metric-label">Insurance Valid</div>
+                        </div>
+                        <div class="metric-card amber">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-calendar-check"></i></div>
+                            </div>
+                            <div class="metric-value">2</div>
+                            <div class="metric-label">Permit Expiring Soon</div>
+                        </div>
+                        <div class="metric-card red">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-oil-can"></i></div>
+                            </div>
+                            <div class="metric-value">₹1.2L</div>
+                            <div class="metric-label">Monthly Maintenance Cost</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-clipboard-list"
+                                    style="color:var(--primary-500);margin-right:8px;"></i>Bus Registry</h3>
+                            <div class="header-search" style="width:240px"><i
+                                    class="fas fa-search search-icon"></i><input type="text"
+                                    placeholder="Search bus..."></div>
+                        </div>
+                        <div class="data-table-wrapper">
+                            <table class="data-table" id="busRegistryTable">
+                                <thead>
+                                    <tr>
+                                        <th>Bus No.</th>
+                                        <th>Reg. Number</th>
+                                        <th>Make / Model</th>
+                                        <th>Year</th>
+                                        <th>Capacity</th>
+                                        <th>Insurance</th>
+                                        <th>Fitness</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== MILEAGE TRACKING PAGE ======== -->
+                <div class="page-view" id="page-mileage">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Mileage Tracking</h1>
+                            <p class="page-subtitle">Detailed daily mileage records and efficiency analysis.</p>
+                        </div>
+                        <div class="page-actions"><button class="btn btn-secondary"><i class="fas fa-calendar-alt"></i>
+                                This Week</button><button class="btn btn-primary"><i class="fas fa-plus"></i> Log
+                                Entry</button></div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card purple">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            </div>
+                            <div class="metric-value">6.2</div>
+                            <div class="metric-label">Fleet Avg (km/l)</div>
+                        </div>
+                        <div class="metric-card green">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
+                            </div>
+                            <div class="metric-value">5</div>
+                            <div class="metric-label">Above Threshold</div>
+                        </div>
+                        <div class="metric-card red">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+                            </div>
+                            <div class="metric-value">3</div>
+                            <div class="metric-label">Below Threshold</div>
+                        </div>
+                        <div class="metric-card blue">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-road"></i></div>
+                            </div>
+                            <div class="metric-value">1,284</div>
+                            <div class="metric-label">Total KM Today</div>
+                        </div>
+                    </div>
+                    <div class="content-grid grid-full">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-table"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Detailed Mileage Records
+                                </h3>
+                                <div class="tabs-bar" style="margin-bottom:0"><button
+                                        class="tab-btn active">Today</button><button class="tab-btn">This
+                                        Week</button><button class="tab-btn">This Month</button></div>
+                            </div>
+                            <div class="data-table-wrapper">
+                                <table class="data-table" id="mileageFullTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Bus No.</th>
+                                            <th>Date</th>
+                                            <th>KM Run</th>
+                                            <th>Fuel Used (L)</th>
+                                            <th>Mileage (km/l)</th>
+                                            <th>Expected</th>
+                                            <th>Variance</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-grid grid-2" style="margin-top:20px">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-line"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Fleet Mileage 7-Day Trend
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container"><canvas id="mileageWeeklyChart"></canvas></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-exclamation-triangle"
+                                        style="color:var(--warning-500);margin-right:8px;"></i>Mileage Alerts</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert-item alert-danger">
+                                    <div class="alert-icon"><i class="fas fa-exclamation-circle"></i></div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">Bus 505 — Critical Low</div>
+                                        <div class="alert-desc">78.5% efficiency — 21.5% below threshold</div>
+                                    </div>
+                                </div>
+                                <div class="alert-item alert-danger">
+                                    <div class="alert-icon"><i class="fas fa-exclamation-circle"></i></div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">Bus 707 — Critical Low</div>
+                                        <div class="alert-desc">81.0% efficiency — 19% below threshold</div>
+                                    </div>
+                                </div>
+                                <div class="alert-item alert-warning">
+                                    <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">Bus 303 — Warning</div>
+                                        <div class="alert-desc">93.3% efficiency — approaching lower bound</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== FUEL LOGS PAGE ======== -->
+                <div class="page-view" id="page-fuel">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Fuel Logs</h1>
+                            <p class="page-subtitle">Track fuel purchases, consumption trends, and cost analytics.</p>
+                        </div>
+                        <div class="page-actions"><button class="btn btn-secondary"><i class="fas fa-download"></i>
+                                Export CSV</button><button class="btn btn-primary"><i class="fas fa-plus"></i> Log
+                                Fill-up</button></div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card red">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-gas-pump"></i></div><span
+                                    class="metric-change down">↑ 12%</span>
+                            </div>
+                            <div class="metric-value">₹4.8L</div>
+                            <div class="metric-label">Monthly Fuel Cost</div>
+                        </div>
+                        <div class="metric-card blue">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-fill-drip"></i></div>
+                            </div>
+                            <div class="metric-value">5,040</div>
+                            <div class="metric-label">Litres This Month</div>
+                        </div>
+                        <div class="metric-card purple">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-rupee-sign"></i></div>
+                            </div>
+                            <div class="metric-value">₹95.0</div>
+                            <div class="metric-label">Avg Price / Litre</div>
+                        </div>
+                        <div class="metric-card amber">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                            </div>
+                            <div class="metric-value">2</div>
+                            <div class="metric-label">Overconsumption Alerts</div>
+                        </div>
+                    </div>
+                    <div class="content-grid grid-7-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-history"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Recent Fill-ups</h3>
+                            </div>
+                            <div class="data-table-wrapper">
+                                <table class="data-table" id="fuelTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Bus</th>
+                                            <th>Date</th>
+                                            <th>Litres</th>
+                                            <th>Rate/L</th>
+                                            <th>Cost</th>
+                                            <th>Odometer</th>
+                                            <th>Vendor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-area"
+                                        style="color:var(--danger-500);margin-right:8px;"></i>Fuel Consumption Trend
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container"><canvas id="fuelTrendChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== FEE MANAGEMENT PAGE ======== -->
+                <div class="page-view" id="page-fees">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Fee Management</h1>
+                            <p class="page-subtitle">Manage transport fee collection, invoices, and payment tracking.
+                            </p>
+                        </div>
+                        <div class="page-actions"><button class="btn btn-secondary"><i class="fas fa-file-invoice"></i>
+                                Generate All Invoices</button><button class="btn btn-primary"><i
+                                    class="fas fa-paper-plane"></i> Send Reminders</button></div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card teal">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-rupee-sign"></i></div><span
+                                    class="metric-change up">↑ 15%</span>
+                            </div>
+                            <div class="metric-value">₹18.4L</div>
+                            <div class="metric-label">Total Collected (Mar)</div>
+                        </div>
+                        <div class="metric-card amber">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-clock"></i></div>
+                            </div>
+                            <div class="metric-value">₹2.6L</div>
+                            <div class="metric-label">Pending Dues</div>
+                        </div>
+                        <div class="metric-card green">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-percentage"></i></div>
+                            </div>
+                            <div class="metric-value">87.6%</div>
+                            <div class="metric-label">Collection Rate</div>
+                        </div>
+                        <div class="metric-card red">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-user-times"></i></div>
+                            </div>
+                            <div class="metric-value">42</div>
+                            <div class="metric-label">Defaulters</div>
+                        </div>
+                    </div>
+                    <div class="content-grid grid-full">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-list-alt"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Fee Collection Summary
+                                </h3>
+                                <div class="tabs-bar" style="margin-bottom:0"><button
+                                        class="tab-btn active">All</button><button class="tab-btn">Paid</button><button
+                                        class="tab-btn">Pending</button><button class="tab-btn">Overdue</button></div>
+                            </div>
+                            <div class="data-table-wrapper">
+                                <table class="data-table" id="feeTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Student</th>
+                                            <th>Class</th>
+                                            <th>Bus</th>
+                                            <th>Monthly Fee</th>
+                                            <th>Mar 2026</th>
+                                            <th>Feb 2026</th>
+                                            <th>Jan 2026</th>
+                                            <th>Outstanding</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== ROUTE MANAGEMENT PAGE ======== -->
+                <div class="page-view" id="page-routes">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Route Management</h1>
+                            <p class="page-subtitle">Manage bus routes, stops, and coverage areas.</p>
+                        </div>
+                        <div class="page-actions"><button class="btn btn-secondary"><i class="fas fa-map"></i> View
+                                Map</button><button class="btn btn-primary"><i class="fas fa-plus"></i> New
+                                Route</button></div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card blue">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-route"></i></div>
+                            </div>
+                            <div class="metric-value">14</div>
+                            <div class="metric-label">Active Routes</div>
+                        </div>
+                        <div class="metric-card green">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            </div>
+                            <div class="metric-value">86</div>
+                            <div class="metric-label">Total Stops</div>
+                        </div>
+                        <div class="metric-card purple">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-road"></i></div>
+                            </div>
+                            <div class="metric-value">312</div>
+                            <div class="metric-label">Total KM Covered</div>
+                        </div>
+                        <div class="metric-card teal">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-users"></i></div>
+                            </div>
+                            <div class="metric-value">1,248</div>
+                            <div class="metric-label">Students Covered</div>
+                        </div>
+                    </div>
+                    <div class="content-grid grid-7-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-route"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Active Routes</h3>
+                            </div>
+                            <div class="data-table-wrapper">
+                                <table class="data-table" id="routeTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Route Name</th>
+                                            <th>Bus</th>
+                                            <th>Distance</th>
+                                            <th>Students</th>
+                                            <th>Stops</th>
+                                            <th>Occupancy</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-bar"
+                                        style="color:var(--success-500);margin-right:8px;"></i>Route Occupancy</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container"><canvas id="routeOccupancyChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== DRIVER MANAGEMENT PAGE ======== -->
+                <div class="page-view" id="page-drivers">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Driver Management</h1>
+                            <p class="page-subtitle">Manage driver profiles, assignments, and compliance.</p>
+                        </div>
+                        <div class="page-actions"><button class="btn btn-secondary"><i class="fas fa-file-export"></i>
+                                Export</button><button class="btn btn-primary"><i class="fas fa-user-plus"></i> Add
+                                Driver</button></div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card blue">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-user-tie"></i></div>
+                            </div>
+                            <div class="metric-value">28</div>
+                            <div class="metric-label">Total Drivers</div>
+                        </div>
+                        <div class="metric-card green">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-user-check"></i></div>
+                            </div>
+                            <div class="metric-value">24</div>
+                            <div class="metric-label">On Duty</div>
+                        </div>
+                        <div class="metric-card amber">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-id-card"></i></div>
+                            </div>
+                            <div class="metric-value">3</div>
+                            <div class="metric-label">License Expiring</div>
+                        </div>
+                        <div class="metric-card purple">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-star"></i></div>
+                            </div>
+                            <div class="metric-value">4.6</div>
+                            <div class="metric-label">Avg Rating</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-users"
+                                    style="color:var(--primary-500);margin-right:8px;"></i>Driver Roster</h3>
+                            <div class="header-search" style="width:220px"><i
+                                    class="fas fa-search search-icon"></i><input type="text"
+                                    placeholder="Search driver..."></div>
+                        </div>
+                        <div class="data-table-wrapper">
+                            <table class="data-table" id="driverTable">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>License No.</th>
+                                        <th>Bus</th>
+                                        <th>Experience</th>
+                                        <th>Contact</th>
+                                        <th>Rating</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== LIVE TRACKING PAGE ======== -->
+                <div class="page-view" id="page-tracking">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title"><span class="sparkle-dot live" style="margin-right:8px;"></span>Live
+                                Tracking</h1>
+                            <p class="page-subtitle">Real-time GPS tracking of all buses and active trips.</p>
+                        </div>
+                        <div class="page-actions">
+                            <button class="btn btn-secondary" id="trackingRefreshBtn"><i class="fas fa-sync-alt"></i>
+                                Refresh</button>
+                            <button class="btn btn-primary"><i class="fas fa-broadcast-tower"></i> Broadcast
+                                Alert</button>
+                        </div>
+                    </div>
+
+                    <!-- Live Stats Bar -->
+                    <div class="metrics-grid">
+                        <div class="metric-card green">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-satellite-dish"></i></div>
+                                <span class="status-badge good"><span class="sparkle-dot live"
+                                        style="margin-right:4px;"></span>Live</span>
+                            </div>
+                            <div class="metric-value" id="trackingActiveBuses">18</div>
+                            <div class="metric-label">Buses On Road</div>
+                        </div>
+                        <div class="metric-card blue">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-exchange-alt"></i></div>
+                            </div>
+                            <div class="metric-value" id="trackingActiveTrips">32</div>
+                            <div class="metric-label">Active Trips</div>
+                        </div>
+                        <div class="metric-card amber">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-clock"></i></div>
+                            </div>
+                            <div class="metric-value" id="trackingDelayed">2</div>
+                            <div class="metric-label">Delayed</div>
+                        </div>
+                        <div class="metric-card purple">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            </div>
+                            <div class="metric-value" id="trackingAvgSpeed">34</div>
+                            <div class="metric-label">Avg Speed (km/h)</div>
+                        </div>
+                    </div>
+
+                    <!-- Map + Bus List -->
+                    <div class="content-grid grid-7-5">
+                        <div class="card tracking-map-card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-map-marked-alt"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Fleet Map — Live
+                                    Positions</h3>
+                                <div class="tabs-bar" style="margin-bottom:0">
+                                    <button class="tab-btn active">All</button>
+                                    <button class="tab-btn">Morning</button>
+                                    <button class="tab-btn">Afternoon</button>
+                                </div>
+                            </div>
+                            <div class="card-body" style="padding:0;position:relative;">
+                                <div class="live-map-container" id="liveMapContainer">
+                                    <!-- Animated SVG Map -->
+                                    <svg viewBox="0 0 800 500" class="live-map-svg" id="liveMapSvg">
+                                        <!-- Road grid -->
+                                        <defs>
+                                            <linearGradient id="roadGrad" x1="0" y1="0" x2="1" y2="0">
+                                                <stop offset="0%" stop-color="var(--border-color)" stop-opacity="0.4" />
+                                                <stop offset="50%" stop-color="var(--border-color)"
+                                                    stop-opacity="0.8" />
+                                                <stop offset="100%" stop-color="var(--border-color)"
+                                                    stop-opacity="0.4" />
+                                            </linearGradient>
+                                            <filter id="glow">
+                                                <feGaussianBlur stdDeviation="3" result="blur" />
+                                                <feMerge>
+                                                    <feMergeNode in="blur" />
+                                                    <feMergeNode in="SourceGraphic" />
+                                                </feMerge>
+                                            </filter>
+                                        </defs>
+                                        <!-- Roads -->
+                                        <path d="M50,250 Q200,180 400,250 Q600,320 750,250" stroke="var(--border-color)"
+                                            stroke-width="28" fill="none" opacity="0.3" stroke-linecap="round" />
+                                        <path d="M400,50 Q350,200 400,250 Q450,300 400,450" stroke="var(--border-color)"
+                                            stroke-width="28" fill="none" opacity="0.3" stroke-linecap="round" />
+                                        <path d="M100,100 Q250,150 400,100 Q550,50 700,100" stroke="var(--border-color)"
+                                            stroke-width="20" fill="none" opacity="0.2" stroke-linecap="round" />
+                                        <path d="M100,400 Q250,350 400,400 Q550,450 700,400"
+                                            stroke="var(--border-color)" stroke-width="20" fill="none" opacity="0.2"
+                                            stroke-linecap="round" />
+                                        <path d="M150,50 L150,450" stroke="var(--border-color)" stroke-width="16"
+                                            fill="none" opacity="0.15" stroke-linecap="round" />
+                                        <path d="M650,50 L650,450" stroke="var(--border-color)" stroke-width="16"
+                                            fill="none" opacity="0.15" stroke-linecap="round" />
+                                        <!-- School marker -->
+                                        <circle cx="400" cy="250" r="18" fill="var(--primary-500)" opacity="0.15" />
+                                        <circle cx="400" cy="250" r="10" fill="var(--primary-500)" opacity="0.3" />
+                                        <circle cx="400" cy="250" r="5" fill="var(--primary-600)" />
+                                        <text x="400" y="280" text-anchor="middle" fill="var(--text-tertiary)"
+                                            font-size="11" font-weight="600">🏫 DPS School</text>
+                                        <!-- Stop markers -->
+                                        <circle cx="120" cy="220" r="4" fill="var(--success-500)" opacity="0.6" />
+                                        <circle cx="220" cy="180" r="4" fill="var(--success-500)" opacity="0.6" />
+                                        <circle cx="580" cy="300" r="4" fill="var(--success-500)" opacity="0.6" />
+                                        <circle cx="680" cy="270" r="4" fill="var(--success-500)" opacity="0.6" />
+                                        <circle cx="350" cy="120" r="4" fill="var(--success-500)" opacity="0.6" />
+                                        <circle cx="450" cy="380" r="4" fill="var(--success-500)" opacity="0.6" />
+                                        <circle cx="160" cy="380" r="4" fill="var(--success-500)" opacity="0.6" />
+                                        <circle cx="640" cy="120" r="4" fill="var(--success-500)" opacity="0.6" />
+                                        <!-- Bus icons (animated) -->
+                                        <g class="bus-marker" id="busMarker101" filter="url(#glow)">
+                                            <circle r="14" fill="var(--success-500)" opacity="0.2" class="bus-pulse" />
+                                            <circle r="8" fill="var(--success-500)" />
+                                            <text dy="4" text-anchor="middle" fill="white" font-size="7"
+                                                font-weight="700">101</text>
+                                        </g>
+                                        <g class="bus-marker" id="busMarker202" filter="url(#glow)">
+                                            <circle r="14" fill="var(--success-500)" opacity="0.2" class="bus-pulse" />
+                                            <circle r="8" fill="var(--success-500)" />
+                                            <text dy="4" text-anchor="middle" fill="white" font-size="7"
+                                                font-weight="700">202</text>
+                                        </g>
+                                        <g class="bus-marker" id="busMarker303" filter="url(#glow)">
+                                            <circle r="14" fill="var(--warning-500)" opacity="0.2" class="bus-pulse" />
+                                            <circle r="8" fill="var(--warning-500)" />
+                                            <text dy="4" text-anchor="middle" fill="white" font-size="7"
+                                                font-weight="700">303</text>
+                                        </g>
+                                        <g class="bus-marker" id="busMarker404" filter="url(#glow)">
+                                            <circle r="14" fill="var(--success-500)" opacity="0.2" class="bus-pulse" />
+                                            <circle r="8" fill="var(--success-500)" />
+                                            <text dy="4" text-anchor="middle" fill="white" font-size="7"
+                                                font-weight="700">404</text>
+                                        </g>
+                                        <g class="bus-marker" id="busMarker606" filter="url(#glow)">
+                                            <circle r="14" fill="var(--success-500)" opacity="0.2" class="bus-pulse" />
+                                            <circle r="8" fill="var(--success-500)" />
+                                            <text dy="4" text-anchor="middle" fill="white" font-size="7"
+                                                font-weight="700">606</text>
+                                        </g>
+                                        <g class="bus-marker" id="busMarker808" filter="url(#glow)">
+                                            <circle r="14" fill="var(--danger-500)" opacity="0.2" class="bus-pulse" />
+                                            <circle r="8" fill="var(--danger-500)" />
+                                            <text dy="4" text-anchor="middle" fill="white" font-size="7"
+                                                font-weight="700">808</text>
+                                        </g>
+                                    </svg>
+                                    <!-- Map legend -->
+                                    <div class="map-legend">
+                                        <div class="legend-item"><span class="legend-dot"
+                                                style="background:var(--success-500)"></span>On Time</div>
+                                        <div class="legend-item"><span class="legend-dot"
+                                                style="background:var(--warning-500)"></span>Slightly Delayed</div>
+                                        <div class="legend-item"><span class="legend-dot"
+                                                style="background:var(--danger-500)"></span>Delayed</div>
+                                        <div class="legend-item"><span class="legend-dot"
+                                                style="background:var(--primary-500)"></span>School</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Active Bus List -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-bus"
+                                        style="color:var(--success-500);margin-right:8px;"></i>Active Buses</h3>
+                                <span class="status-badge good"><span class="sparkle-dot live"
+                                        style="margin-right:4px;"></span>Real-time</span>
+                            </div>
+                            <div class="card-body" style="padding:12px;max-height:420px;overflow-y:auto"
+                                id="activeBusList">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trip Timeline + Notifications -->
+                    <div class="content-grid grid-7-5" style="margin-top:4px">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-stream"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Trip Timeline — Bus 101
+                                </h3>
+                                <select class="form-select" style="width:140px;height:34px" id="tripTimelineBusSelect">
+                                    <option>Bus 101</option>
+                                    <option>Bus 202</option>
+                                    <option>Bus 303</option>
+                                    <option>Bus 404</option>
+                                    <option>Bus 606</option>
+                                    <option>Bus 808</option>
+                                </select>
+                            </div>
+                            <div class="card-body" id="tripTimelineBody">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-bell"
+                                        style="color:var(--warning-500);margin-right:8px;"></i>Parent Notifications</h3>
+                                <span class="status-badge info"><span class="status-dot"></span>12 Sent Today</span>
+                            </div>
+                            <div class="card-body" style="padding:12px" id="parentNotificationsBody">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Speed Analytics Chart -->
+                    <div class="content-grid grid-2" style="margin-top:4px">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-tachometer-alt"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Speed Over Time — Today
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container"><canvas id="trackingSpeedChart"></canvas></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-check-double"
+                                        style="color:var(--success-500);margin-right:8px;"></i>Trip Completion</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container"><canvas id="trackingCompletionChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== MAINTENANCE & SERVICE PAGE ======== -->
+                <div class="page-view" id="page-maintenance">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Maintenance & Service</h1>
+                            <p class="page-subtitle">Schedule maintenance, track service history, and manage parts
+                                inventory.</p>
+                        </div>
+                        <div class="page-actions">
+                            <button class="btn btn-secondary"><i class="fas fa-file-export"></i> Export Log</button>
+                            <button class="btn btn-primary"><i class="fas fa-plus"></i> New Work Order</button>
+                        </div>
+                    </div>
+
+                    <!-- Maintenance Metrics -->
+                    <div class="metrics-grid">
+                        <div class="metric-card amber">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-calendar-check"></i></div>
+                                <span class="metric-change down">↑ 2</span>
+                            </div>
+                            <div class="metric-value">4</div>
+                            <div class="metric-label">Service Due This Week</div>
+                        </div>
+                        <div class="metric-card green">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-check-double"></i></div>
+                            </div>
+                            <div class="metric-value">18</div>
+                            <div class="metric-label">Completed This Month</div>
+                        </div>
+                        <div class="metric-card red">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-rupee-sign"></i></div>
+                                <span class="metric-change down">↑ 8%</span>
+                            </div>
+                            <div class="metric-value">₹1.8L</div>
+                            <div class="metric-label">Monthly Maintenance Cost</div>
+                        </div>
+                        <div class="metric-card blue">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-boxes"></i></div>
+                            </div>
+                            <div class="metric-value">34</div>
+                            <div class="metric-label">Parts in Stock</div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Service + Work Orders -->
+                    <div class="content-grid grid-7-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-calendar-alt"
+                                        style="color:var(--warning-500);margin-right:8px;"></i>Upcoming Service Schedule
+                                </h3>
+                                <div class="tabs-bar" style="margin-bottom:0"><button class="tab-btn active">This
+                                        Week</button><button class="tab-btn">This Month</button><button
+                                        class="tab-btn">Overdue</button></div>
+                            </div>
+                            <div class="card-body" id="upcomingServiceBody">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-clipboard-list"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Active Work Orders</h3>
+                                <span class="status-badge warning"><span class="status-dot"></span>4 Open</span>
+                            </div>
+                            <div class="card-body" id="workOrdersBody">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service History Table -->
+                    <div class="content-grid grid-full">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-history"
+                                        style="color:var(--success-500);margin-right:8px;"></i>Service History</h3>
+                                <div class="header-search" style="width:220px"><i
+                                        class="fas fa-search search-icon"></i><input type="text"
+                                        placeholder="Search service..."></div>
+                            </div>
+                            <div class="data-table-wrapper">
+                                <table class="data-table" id="serviceHistoryTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Bus</th>
+                                            <th>Service Type</th>
+                                            <th>Date</th>
+                                            <th>Odometer</th>
+                                            <th>Cost</th>
+                                            <th>Vendor</th>
+                                            <th>Status</th>
+                                            <th>Next Due</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Parts Inventory + Cost Chart -->
+                    <div class="content-grid grid-5-7" style="margin-top:4px">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-cogs"
+                                        style="color:var(--text-secondary);margin-right:8px;"></i>Parts Inventory</h3>
+                                <button class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> Add Part</button>
+                            </div>
+                            <div class="card-body" id="partsInventoryBody">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-bar"
+                                        style="color:var(--danger-500);margin-right:8px;"></i>Maintenance Cost Breakdown
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container"><canvas id="maintenanceCostChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== ATTENDANCE & SAFETY PAGE ======== -->
+                <div class="page-view" id="page-attendance">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Attendance & Safety</h1>
+                            <p class="page-subtitle">Track student boarding, monitor safety compliance, and manage
+                                emergency protocols.</p>
+                        </div>
+                        <div class="page-actions">
+                            <button class="btn btn-secondary"><i class="fas fa-file-csv"></i> Export Report</button>
+                            <button class="btn btn-primary"><i class="fas fa-shield-alt"></i> Safety Drill Log</button>
+                        </div>
+                    </div>
+
+                    <!-- Attendance Metrics -->
+                    <div class="metrics-grid">
+                        <div class="metric-card green">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-user-check"></i></div>
+                                <span class="metric-change up">↑ 2%</span>
+                            </div>
+                            <div class="metric-value">96.4%</div>
+                            <div class="metric-label">Today's Boarding Rate</div>
+                        </div>
+                        <div class="metric-card blue">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-user-graduate"></i></div>
+                            </div>
+                            <div class="metric-value">1,203</div>
+                            <div class="metric-label">Students Boarded Today</div>
+                        </div>
+                        <div class="metric-card amber">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-user-minus"></i></div>
+                            </div>
+                            <div class="metric-value">45</div>
+                            <div class="metric-label">Absent Today</div>
+                        </div>
+                        <div class="metric-card purple">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-shield-alt"></i></div>
+                                <span class="metric-change up">100%</span>
+                            </div>
+                            <div class="metric-value">A+</div>
+                            <div class="metric-label">Safety Score</div>
+                        </div>
+                    </div>
+
+                    <!-- Today's Check-in Log + Safety Compliance -->
+                    <div class="content-grid grid-7-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-clipboard-check"
+                                        style="color:var(--success-500);margin-right:8px;"></i>Today's Boarding Log</h3>
+                                <div class="tabs-bar" style="margin-bottom:0"><button
+                                        class="tab-btn active">Morning</button><button
+                                        class="tab-btn">Afternoon</button></div>
+                            </div>
+                            <div class="data-table-wrapper">
+                                <table class="data-table" id="attendanceTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Student</th>
+                                            <th>Class</th>
+                                            <th>Bus</th>
+                                            <th>Boarded At</th>
+                                            <th>Stop</th>
+                                            <th>Check-in</th>
+                                            <th>Drop-off</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-shield-alt"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Safety Compliance</h3>
+                                <span class="status-badge good"><span class="status-dot"></span>All Clear</span>
+                            </div>
+                            <div class="card-body" id="safetyChecklistBody">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Emergency Contacts + Attendance Chart -->
+                    <div class="content-grid grid-5-7" style="margin-top:4px">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-phone-alt"
+                                        style="color:var(--danger-500);margin-right:8px;"></i>Emergency Contacts</h3>
+                                <button class="btn btn-sm btn-danger"><i class="fas fa-exclamation-circle"></i>
+                                    SOS</button>
+                            </div>
+                            <div class="card-body" id="emergencyContactsBody">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-line"
+                                        style="color:var(--success-500);margin-right:8px;"></i>Attendance Trend — Last 7
+                                    Days</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container"><canvas id="attendanceTrendChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Absent Students & Incident Log -->
+                    <div class="content-grid grid-2" style="margin-top:4px">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-user-times"
+                                        style="color:var(--warning-500);margin-right:8px;"></i>Absent Students Today
+                                </h3>
+                                <span class="status-badge warning"><span class="status-dot"></span>45 Absent</span>
+                            </div>
+                            <div class="card-body" id="absentStudentsBody">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-exclamation-triangle"
+                                        style="color:var(--danger-500);margin-right:8px;"></i>Incident Log</h3>
+                                <button class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Log Incident</button>
+                            </div>
+                            <div class="card-body" id="incidentLogBody">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== SPECIAL TRIPS PAGE ======== -->
+                <div class="page-view" id="page-trips">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Special Trips</h1>
+                            <p class="page-subtitle">Manage ad-hoc trips, field excursions, and event transport.</p>
+                        </div>
+                        <div class="page-actions">
+                            <button class="btn btn-secondary"><i class="fas fa-calendar-alt"></i> Trip Calendar</button>
+                            <button class="btn btn-primary"><i class="fas fa-plus"></i> New Trip Request</button>
+                        </div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card blue">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-shuttle-van"></i></div>
+                            </div>
+                            <div class="metric-value">12</div>
+                            <div class="metric-label">Upcoming Trips</div>
+                        </div>
+                        <div class="metric-card green">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-check-circle"></i></div>
+                            </div>
+                            <div class="metric-value">4</div>
+                            <div class="metric-label">Approved</div>
+                        </div>
+                        <div class="metric-card amber">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-clock"></i></div>
+                            </div>
+                            <div class="metric-value">3</div>
+                            <div class="metric-label">Pending Approval</div>
+                        </div>
+                        <div class="metric-card purple">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-rupee-sign"></i></div>
+                            </div>
+                            <div class="metric-value">₹45.2K</div>
+                            <div class="metric-label">Estimated Revene</div>
+                        </div>
+                    </div>
+                    <div class="content-grid grid-7-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-calendar-day"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Upcoming Trips List</h3>
+                            </div>
+                            <div class="card-body">
+                                <div
+                                    style="border:1px solid var(--border-color); border-radius:8px; padding:16px; margin-bottom:12px;">
+                                    <div style="display:flex; justify-content:space-between; margin-bottom: 8px;">
+                                        <strong style="font-size:15px;color:var(--text-primary)">Science Museum
+                                            Visit</strong>
+                                        <span class="status-badge warning"><span
+                                                class="status-dot"></span>Pending</span>
+                                    </div>
+                                    <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;">
+                                        <i class="fas fa-calendar-alt" style="margin-right: 4px;"></i> 12 Mar 2026
+                                        &nbsp;|&nbsp;
+                                        <i class="fas fa-users" style="margin-right: 4px;"></i> 45 Students (Class 8)
+                                    </div>
+                                    <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+                                        <i class="fas fa-bus" style="margin-right: 4px;"></i> Requested: 1 Bus
+                                    </div>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button class="btn btn-sm btn-success"><i class="fas fa-check"></i>
+                                            Approve</button>
+                                        <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i>
+                                            Reject</button>
+                                    </div>
+                                </div>
+                                <div style="border:1px solid var(--border-color); border-radius:8px; padding:16px;">
+                                    <div style="display:flex; justify-content:space-between; margin-bottom: 8px;">
+                                        <strong style="font-size:15px;color:var(--text-primary)">Inter-School Sports
+                                            Meet</strong>
+                                        <span class="status-badge good"><span class="status-dot"></span>Approved</span>
+                                    </div>
+                                    <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;">
+                                        <i class="fas fa-calendar-alt" style="margin-right: 4px;"></i> 15 Mar 2026
+                                        &nbsp;|&nbsp;
+                                        <i class="fas fa-map-marker-alt" style="margin-right: 4px;"></i> City Stadium
+                                    </div>
+                                    <div style="font-size: 13px; color: var(--text-secondary);">
+                                        <i class="fas fa-user-tie" style="margin-right: 4px;"></i> Assigned: Bus 202
+                                        (Suresh K.)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-pie"
+                                        style="color:var(--success-500);margin-right:8px;"></i>Trip Revenue Analysis
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container"><canvas id="tripsCostChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== COMMUNICATION PAGE ======== -->
+                <div class="page-view" id="page-communication">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Communication Hub</h1>
+                            <p class="page-subtitle">Send announcements, emergency alerts, and view message history.</p>
+                        </div>
+                    </div>
+
+                    <div class="content-grid grid-5-7">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-envelope-open-text"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Compose Message</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="form-label">Recipient Group</label>
+                                    <select class="form-select">
+                                        <option>All Parents</option>
+                                        <option>Parents of Route 4</option>
+                                        <option>All Drivers</option>
+                                        <option>Specific Group</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Message Type</label>
+                                    <div style="display:flex; gap:16px; margin-top:8px;">
+                                        <label
+                                            style="display:flex; align-items:center; gap:6px; font-size:14px;color:var(--text-primary)"><input
+                                                type="radio" name="msgType" checked> Normal Update</label>
+                                        <label
+                                            style="display:flex; align-items:center; gap:6px; font-size:14px; color:var(--danger-500);"><input
+                                                type="radio" name="msgType"> Urgent Alert</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Title / Subject</label>
+                                    <input type="text" class="form-input" placeholder="e.g. Bus Delay Notification">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Message Content</label>
+                                    <textarea class="form-input" rows="5"
+                                        placeholder="Type your message here..."></textarea>
+                                </div>
+                                <div style="display:flex; justify-content:flex-end;">
+                                    <button class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send via App &
+                                        SMS</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-history"
+                                        style="color:var(--success-500);margin-right:8px;"></i>Recent Communications
+                                </h3>
+                                <div class="header-search" style="width:200px">
+                                    <i class="fas fa-search search-icon"></i>
+                                    <input type="text" placeholder="Search logs...">
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div
+                                    style="border-left: 4px solid var(--warning-500); background: var(--bg-primary); padding: 12px; margin-bottom: 12px; border-radius: 4px;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+                                    <div
+                                        style="font-weight:600; font-size:14px; color:var(--text-primary); margin-bottom: 4px;">
+                                        Bus 101 - 15 Mins Delayed due to traffic</div>
+                                    <div
+                                        style="font-size:12px; color:var(--text-secondary); display:flex; justify-content:space-between;">
+                                        <span>To: Parents of Route 1</span>
+                                        <span>Today, 07:45 AM</span>
+                                    </div>
+                                    <div style="margin-top: 8px; font-size: 12px; color:var(--success-500);">
+                                        <i class="fas fa-check-double"></i> Delivered to 42/42
+                                    </div>
+                                </div>
+                                <div
+                                    style="border-left: 4px solid var(--primary-500); background: var(--bg-primary); padding: 12px; margin-bottom: 12px; border-radius: 4px;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+                                    <div
+                                        style="font-weight:600; font-size:14px; color:var(--text-primary); margin-bottom: 4px;">
+                                        Monthly Transport Fee Reminder</div>
+                                    <div
+                                        style="font-size:12px; color:var(--text-secondary); display:flex; justify-content:space-between;">
+                                        <span>To: All Parents (Defaulters)</span>
+                                        <span>Yesterday, 10:00 AM</span>
+                                    </div>
+                                    <div style="margin-top: 8px; font-size: 12px; color:var(--success-500);">
+                                        <i class="fas fa-check-double"></i> Delivered to 142/145 (3 failed)
+                                    </div>
+                                </div>
+                                <div
+                                    style="border-left: 4px solid var(--success-500); background: var(--bg-primary); padding: 12px; margin-bottom: 12px; border-radius: 4px;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+                                    <div
+                                        style="font-weight:600; font-size:14px; color:var(--text-primary); margin-bottom: 4px;">
+                                        Welcome to New Academic Year</div>
+                                    <div
+                                        style="font-size:12px; color:var(--text-secondary); display:flex; justify-content:space-between;">
+                                        <span>To: All Parents</span>
+                                        <span>Mar 01, 09:00 AM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======== DOCUMENT VAULT PAGE ======== -->
+                <div class="page-view" id="page-vault">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Document Vault</h1>
+                            <p class="page-subtitle">Centralized storage for fleet compliance, vehicle RCs, and
+                                insurance documents.</p>
+                        </div>
+                        <div class="page-actions">
+                            <button class="btn btn-secondary"><i class="fas fa-download"></i> Export Report</button>
+                            <button class="btn btn-primary"><i class="fas fa-upload"></i> Upload Document</button>
+                        </div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card green">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-file-alt"></i></div>
+                            </div>
+                            <div class="metric-value">145</div>
+                            <div class="metric-label">Valid Documents</div>
+                        </div>
+                        <div class="metric-card amber">
+                            <div class="metric-header">
+                                <div class="metric-icon"><i class="fas fa-exclamation-circle"></i></div>
+                            </div>
+                            <div class="metric-value">6</div>
+                            <div class="metric-label">Expiring < 30 Days</div>
+                            </div>
+                            <div class="metric-card red">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-times-circle"></i></div>
+                                </div>
+                                <div class="metric-value">2</div>
+                                <div class="metric-label">Expired Missing</div>
+                            </div>
+                            <div class="metric-card blue">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-hdd"></i></div>
+                                </div>
+                                <div class="metric-value">84%</div>
+                                <div class="metric-label">Compliance Rate</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-folder"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Compliance Documents</h3>
+                                <div class="tabs-bar" style="margin-bottom:0">
+                                    <button class="tab-btn active">All</button>
+                                    <button class="tab-btn">Insurance</button>
+                                    <button class="tab-btn">Permits</button>
+                                    <button class="tab-btn">Fitness</button>
+                                    <button class="tab-btn">PUC</button>
+                                </div>
+                            </div>
+                            <div class="data-table-wrapper">
+                                <table class="data-table" id="vaultTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Vehicle / Driver</th>
+                                            <th>Document Type</th>
+                                            <th>Issued Date</th>
+                                            <th>Expiry Date</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======== VENDOR MANAGEMENT PAGE ======== -->
+                    <div class="page-view" id="page-vendors">
+                        <div class="page-header">
+                            <div>
+                                <h1 class="page-title">Vendor Management</h1>
+                                <p class="page-subtitle">Manage fuel stations, service garages, and spare part
+                                    suppliers.</p>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Vendor</button>
+                            </div>
+                        </div>
+
+                        <div class="content-grid grid-5-7">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-users"
+                                            style="color:var(--primary-500);margin-right:8px;"></i>Vendor Directory</h3>
+                                    <div class="header-search" style="width:200px">
+                                        <i class="fas fa-search search-icon"></i>
+                                        <input type="text" placeholder="Search vendors...">
+                                    </div>
+                                </div>
+                                <div class="data-table-wrapper">
+                                    <table class="data-table" id="vendorTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Vendor Name</th>
+                                                <th>Category</th>
+                                                <th>Rating</th>
+                                                <th>Outstanding Balance</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-chart-line"
+                                            style="color:var(--success-500);margin-right:8px;"></i>Vendor Spend Analysis
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container"><canvas id="vendorSpendChart"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======== HR & PAYROLL PAGE ======== -->
+                    <div class="page-view" id="page-hr">
+                        <div class="page-header">
+                            <div>
+                                <h1 class="page-title">HR & Payroll</h1>
+                                <p class="page-subtitle">Manage staff attendance, shifts, leave requests, and driver
+                                    payouts.</p>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn btn-secondary"><i class="fas fa-file-invoice-dollar"></i> Generate
+                                    Payroll</button>
+                                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Add Staff</button>
+                            </div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card blue">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-users"></i></div>
+                                </div>
+                                <div class="metric-value">46</div>
+                                <div class="metric-label">Total Staff</div>
+                            </div>
+                            <div class="metric-card green">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-user-check"></i></div>
+                                </div>
+                                <div class="metric-value">42</div>
+                                <div class="metric-label">Present Today</div>
+                            </div>
+                            <div class="metric-card amber">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-calendar-minus"></i></div>
+                                </div>
+                                <div class="metric-value">4</div>
+                                <div class="metric-label">On Leave</div>
+                            </div>
+                            <div class="metric-card purple">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-wallet"></i></div>
+                                </div>
+                                <div class="metric-value">₹8.4L</div>
+                                <div class="metric-label">Est. Monthly Payroll</div>
+                            </div>
+                        </div>
+                        <div class="content-grid grid-7-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-user-clock"
+                                            style="color:var(--primary-500);margin-right:8px;"></i>Staff Directory &
+                                        Attendance</h3>
+                                </div>
+                                <div class="data-table-wrapper">
+                                    <table class="data-table" id="hrTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Role</th>
+                                                <th>Shift</th>
+                                                <th>Att. Rate</th>
+                                                <th>Status Today</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-money-check-alt"
+                                            style="color:var(--success-500);margin-right:8px;"></i>Payroll Overview</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container"><canvas id="payrollChart"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======== ROUTE OPTIMIZER PAGE (AI) ======== -->
+                    <div class="page-view" id="page-optimizer">
+                        <div class="page-header">
+                            <div>
+                                <h1 class="page-title">AI Route Optimizer <span class="sparkle-dot live"
+                                        style="margin-left:8px;"></span></h1>
+                                <p class="page-subtitle">Automatically calculates the most fuel-efficient and
+                                    time-saving routes using AI.</p>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn btn-secondary"><i class="fas fa-cogs"></i> Preferences</button>
+                                <button class="btn btn-primary" id="btn-run-optimizer"><i class="fas fa-magic"></i> Run
+                                    Optimizer</button>
+                            </div>
+                        </div>
+                        <div class="content-grid grid-5-7">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-robot"
+                                            style="color:var(--purple-500);margin-right:8px;"></i>Optimization Engine
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="form-label">Objective Focus</label>
+                                        <select class="form-select">
+                                            <option>Balance Cost & Time</option>
+                                            <option>Minimize Fuel Cost / Distance</option>
+                                            <option>Minimize Travel Time</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Constraints</label>
+                                        <div style="margin-top:8px">
+                                            <label
+                                                style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary);margin-bottom:8px;">
+                                                <input type="checkbox" checked> Max ride time 45 mins per student
+                                            </label>
+                                            <label
+                                                style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary);margin-bottom:8px;">
+                                                <input type="checkbox" checked> Avoid high-traffic zones (Live API)
+                                            </label>
+                                            <label
+                                                style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary);">
+                                                <input type="checkbox"> Prioritize main roads
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <div id="optimizer-status" style="text-align:center; display:none;">
+                                        <div style="margin-bottom:12px;"><i class="fas fa-sync-alt fa-spin"
+                                                style="color:var(--primary-500); font-size:24px;"></i></div>
+                                        <div style="color:var(--text-secondary); font-size:14px;">Analyzing 86 stops &
+                                            14 routes...</div>
+                                    </div>
+                                    <div id="optimizer-results" style="display:none; text-align:center;">
+                                        <div class="status-badge good"
+                                            style="font-size:14px; padding:6px 16px; margin-bottom:12px;">Optimization
+                                            Complete!</div>
+                                        <p style="color:var(--success-500); font-weight:600;">Found 12% efficiency
+                                            improvement.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-chart-area"
+                                            style="color:var(--success-500);margin-right:8px;"></i>Potential Savings
+                                        Impact</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="content-grid grid-2" style="margin-bottom:16px;">
+                                        <div
+                                            style="border:1px solid var(--success-500); background:rgba(34,197,94,0.05); padding:12px; border-radius:8px; text-align:center;">
+                                            <div style="font-size:12px; color:var(--text-secondary);">Est. KMs Saved /
+                                                Month</div>
+                                            <div style="font-size:20px; font-weight:700; color:var(--success-500);">420
+                                                km</div>
+                                        </div>
+                                        <div
+                                            style="border:1px solid var(--primary-500); background:var(--blueBg); padding:12px; border-radius:8px; text-align:center;">
+                                            <div style="font-size:12px; color:var(--text-secondary);">Est. Cost Saved /
+                                                Month</div>
+                                            <div style="font-size:20px; font-weight:700; color:var(--primary-500);">
+                                                ₹18,500</div>
+                                        </div>
+                                    </div>
+                                    <h4
+                                        style="font-size:13px; font-weight:600; color:var(--text-primary); margin-bottom:12px;">
+                                        Suggested Changes <span class="badge"
+                                            style="background:var(--primary-500); color:white; border-radius:12px; padding:2px 8px; font-size:11px;">2</span>
+                                    </h4>
+                                    <div
+                                        style="border:1px solid var(--border-color); border-radius:8px; padding:12px; margin-bottom:8px;">
+                                        <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
+                                            <strong style="font-size:14px;color:var(--text-primary)">Merge Route 4 &
+                                                7</strong>
+                                            <span
+                                                style="font-size:12px; color:var(--success-500); font-weight:600;">High
+                                                Impact</span>
+                                        </div>
+                                        <p style="font-size:12px; color:var(--text-secondary); margin:0;">Both routes
+                                            run at < 65% capacity in the same quadrant. Merging saves 1 bus and
+                                                driver.</p>
+                                    </div>
+                                    <div style="border:1px solid var(--border-color); border-radius:8px; padding:12px;">
+                                        <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
+                                            <strong style="font-size:14px;color:var(--text-primary)">Reroute Bus
+                                                202</strong>
+                                            <span style="font-size:12px; color:var(--success-500); font-weight:600;">Med
+                                                Impact</span>
+                                        </div>
+                                        <p style="font-size:12px; color:var(--text-secondary); margin:0;">Avoid MG road
+                                            during 7:30-8:00 AM to save average 12 mins delay time.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======== INCIDENTS & ACCIDENTS PAGE ======== -->
+                    <div class="page-view" id="page-incidents">
+                        <div class="page-header">
+                            <div>
+                                <h1 class="page-title">Incidents & Reporting</h1>
+                                <p class="page-subtitle">Track accidents, breakdowns, and onboard behavioral issues.</p>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn btn-secondary"><i class="fas fa-file-pdf"></i> Generate
+                                    Report</button>
+                                <button class="btn btn-danger"><i class="fas fa-exclamation-triangle"></i> Report
+                                    Incident</button>
+                            </div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card red">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-car-crash"></i></div>
+                                </div>
+                                <div class="metric-value">2</div>
+                                <div class="metric-label">Minor Accidents (YTD)</div>
+                            </div>
+                            <div class="metric-card amber">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-tools"></i></div>
+                                </div>
+                                <div class="metric-value">14</div>
+                                <div class="metric-label">Breakdowns</div>
+                            </div>
+                            <div class="metric-card purple">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-child"></i></div>
+                                </div>
+                                <div class="metric-value">5</div>
+                                <div class="metric-label">Behavioral Reports</div>
+                            </div>
+                            <div class="metric-card green">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-shield-check"></i></div>
+                                </div>
+                                <div class="metric-value">98.5%</div>
+                                <div class="metric-label">Safety Score</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-clipboard-list"
+                                        style="color:var(--danger-500);margin-right:8px;"></i>Recent Incident Logs</h3>
+                                <div class="tabs-bar" style="margin-bottom:0">
+                                    <button class="tab-btn active">All</button>
+                                    <button class="tab-btn">Accidents</button>
+                                    <button class="tab-btn">Breakdowns</button>
+                                    <button class="tab-btn">Behavioral</button>
+                                </div>
+                            </div>
+                            <div class="data-table-wrapper">
+                                <table class="data-table" id="incidentsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Date & Time</th>
+                                            <th>Type</th>
+                                            <th>Location / Route</th>
+                                            <th>Vehicle/Driver</th>
+                                            <th>Severity</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======== PARTS & INVENTORY PAGE ======== -->
+                    <div class="page-view" id="page-inventory">
+                        <div class="page-header">
+                            <div>
+                                <h1 class="page-title">Parts & Inventory</h1>
+                                <p class="page-subtitle">Track spare parts, tools, tires, and workshop consumables.</p>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn btn-secondary"><i class="fas fa-box-open"></i> Audit Stock</button>
+                                <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Item</button>
+                            </div>
+                        </div>
+                        <div class="content-grid grid-7-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-boxes"
+                                            style="color:var(--primary-500);margin-right:8px;"></i>Stock Directory</h3>
+                                    <div class="header-search" style="width:200px">
+                                        <i class="fas fa-search search-icon"></i>
+                                        <input type="text" placeholder="Search parts...">
+                                    </div>
+                                </div>
+                                <div class="data-table-wrapper">
+                                    <table class="data-table" id="inventoryTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Part Name & ID</th>
+                                                <th>Category</th>
+                                                <th>Stock Level</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-chart-pie"
+                                            style="color:var(--purple-500);margin-right:8px;"></i>Inventory Value by
+                                        Category</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container"><canvas id="inventoryChart"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======== IT & HARDWARE DEVICES PAGE ======== -->
+                    <div class="page-view" id="page-devices">
+                        <div class="page-header">
+                            <div>
+                                <h1 class="page-title">IT & Hardware</h1>
+                                <p class="page-subtitle">Monitor and configure GPS trackers, dashcams, and RFID scanners
+                                    onboard.</p>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn btn-secondary"><i class="fas fa-sync-alt"></i> Run Tech Diag</button>
+                                <button class="btn btn-primary"><i class="fas fa-plus"></i> Register Device</button>
+                            </div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card blue">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-satellite-dish"></i></div>
+                                </div>
+                                <div class="metric-value">124</div>
+                                <div class="metric-label">Total Devices</div>
+                            </div>
+                            <div class="metric-card green">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-wifi"></i></div>
+                                </div>
+                                <div class="metric-value">118</div>
+                                <div class="metric-label">Online & Active</div>
+                            </div>
+                            <div class="metric-card amber">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-signal"></i></div>
+                                </div>
+                                <div class="metric-value">4</div>
+                                <div class="metric-label">Weak Signal</div>
+                            </div>
+                            <div class="metric-card red">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-plug"></i></div>
+                                </div>
+                                <div class="metric-value">2</div>
+                                <div class="metric-label">Offline / Faulty</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-microchip"
+                                        style="color:var(--primary-500);margin-right:8px;"></i>Device Directory</h3>
+                                <div class="tabs-bar" style="margin-bottom:0">
+                                    <button class="tab-btn active">All</button>
+                                    <button class="tab-btn">GPS Trackers</button>
+                                    <button class="tab-btn">RFID Scanners</button>
+                                    <button class="tab-btn">Dashcams</button>
+                                </div>
+                            </div>
+                            <div class="data-table-wrapper">
+                                <table class="data-table" id="devicesTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Device ID & Type</th>
+                                            <th>Assigned Vehicle</th>
+                                            <th>Last Ping Time</th>
+                                            <th>Firmware</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======== DRIVER PERFORMANCE PAGE ======== -->
+                    <div class="page-view" id="page-performance">
+                        <div class="page-header">
+                            <div>
+                                <h1 class="page-title">Driver Performance</h1>
+                                <p class="page-subtitle">Analytics on driving behavior, safety scores, and eco-driving
+                                    metrics.
+                                </p>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn btn-secondary"><i class="fas fa-download"></i> Export Data</button>
+                            </div>
+                        </div>
+
+                        <div class="content-grid grid-5-7">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-shield-alt"
+                                            style="color:var(--success-500);margin-right:8px;"></i>Key Risk Indicators
+                                        (30 Days)
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div
+                                        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid var(--border-color); padding-bottom:12px;">
+                                        <div style="font-size:14px; font-weight:600; color:var(--text-primary)">Harsh
+                                            Braking
+                                            Events</div>
+                                        <div style="font-size:18px; font-weight:700; color:var(--danger-500)">14<i
+                                                class="fas fa-arrow-up"
+                                                style="font-size:12px;margin-left:8px;color:var(--danger-500);"></i>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid var(--border-color); padding-bottom:12px;">
+                                        <div style="font-size:14px; font-weight:600; color:var(--text-primary)">
+                                            Over-speeding
+                                            Alert</div>
+                                        <div style="font-size:18px; font-weight:700; color:var(--warning-500)">6<i
+                                                class="fas fa-arrow-down"
+                                                style="font-size:12px;margin-left:8px;color:var(--success-500);"></i>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid var(--border-color); padding-bottom:12px;">
+                                        <div style="font-size:14px; font-weight:600; color:var(--text-primary)">Sharp
+                                            Cornering
+                                        </div>
+                                        <div style="font-size:18px; font-weight:700; color:var(--text-primary)">22<i
+                                                class="fas fa-minus"
+                                                style="font-size:12px;margin-left:8px;color:var(--text-secondary);"></i>
+                                        </div>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <div style="font-size:14px; font-weight:600; color:var(--text-primary)">Idle
+                                            Time (Avg
+                                            Mins/Day)</div>
+                                        <div style="font-size:18px; font-weight:700; color:var(--text-primary)">18<i
+                                                class="fas fa-arrow-down"
+                                                style="font-size:12px;margin-left:8px;color:var(--success-500);"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-tachometer-alt"
+                                            style="color:var(--primary-500);margin-right:8px;"></i>Driver Leaderboard
+                                    </h3>
+                                    <div class="header-search" style="width:200px">
+                                        <i class="fas fa-search search-icon"></i>
+                                        <input type="text" placeholder="Search drivers...">
+                                    </div>
+                                </div>
+                                <div class="data-table-wrapper" style="max-height: 250px; overflow-y: auto;">
+                                    <table class="data-table" id="performanceTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Driver Name</th>
+                                                <th>Eco Score</th>
+                                                <th>Risk Profile</th>
+                                                <th>Action Required</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" style="margin-top:20px;">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-chart-line"
+                                        style="color:var(--purple-500);margin-right:8px;"></i>Fleet Average Safety Score
+                                    Trend
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container"><canvas id="safetyTrendChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======== SETTINGS PAGE ======== -->
+                    <div class="page-view" id="page-settings">
+                        <div class="page-header">
+                            <div>
+                                <h1 class="page-title">Settings</h1>
+                                <p class="page-subtitle">Configure system preferences, notifications, and account
+                                    details.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="content-grid grid-7-5">
+                            <div>
+                                <!-- General Settings -->
+                                <div class="card" style="margin-bottom:20px">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-school"
+                                                style="color:var(--primary-500);margin-right:8px;"></i>School
+                                            Information
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="content-grid grid-2" style="margin-bottom:0">
+                                            <div class="form-group"><label class="form-label">School Name</label><input
+                                                    type="text" class="form-input"
+                                                    value="Delhi Public School — Sector 45">
+                                            </div>
+                                            <div class="form-group"><label class="form-label">Contact
+                                                    Email</label><input type="email" class="form-input"
+                                                    value="transport@dps45.edu.in"></div>
+                                            <div class="form-group"><label class="form-label">Phone Number</label><input
+                                                    type="tel" class="form-input" value="+91 98765-43210"></div>
+                                            <div class="form-group"><label class="form-label">Academic
+                                                    Year</label><select class="form-select">
+                                                    <option>2025-26</option>
+                                                    <option>2026-27</option>
+                                                </select></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Transport Settings -->
+                                <div class="card" style="margin-bottom:20px">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-sliders-h"
+                                                style="color:var(--warning-500);margin-right:8px;"></i>Transport
+                                            Configuration</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="content-grid grid-2" style="margin-bottom:0">
+                                            <div class="form-group"><label class="form-label">Default School Days /
+                                                    Month</label><input type="number" class="form-input" value="24">
+                                            </div>
+                                            <div class="form-group"><label class="form-label">Default Profit Margin
+                                                    (%)</label><input type="number" class="form-input" value="25"></div>
+                                            <div class="form-group"><label class="form-label">Mileage Alert Threshold
+                                                    (%)</label><input type="number" class="form-input" value="85"></div>
+                                            <div class="form-group"><label class="form-label">Fuel Price / Litre
+                                                    (₹)</label><input type="number" class="form-input" value="95.00">
+                                            </div>
+                                        </div>
+                                        <div style="display:flex;flex-direction:column;gap:16px;margin-top:8px">
+                                            <label class="toggle-switch"><input type="checkbox" checked><span
+                                                    class="toggle-track"></span><span class="toggle-label">Enable email
+                                                    notifications for alerts</span></label>
+                                            <label class="toggle-switch"><input type="checkbox" checked><span
+                                                    class="toggle-track"></span><span class="toggle-label">Auto-generate
+                                                    monthly invoices</span></label>
+                                            <label class="toggle-switch"><input type="checkbox"><span
+                                                    class="toggle-track"></span><span class="toggle-label">Allow parent
+                                                    portal access</span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Danger Zone -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-exclamation-triangle"
+                                                style="color:var(--danger-500);margin-right:8px;"></i>Danger Zone</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div
+                                            style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border-light)">
+                                            <div>
+                                                <div style="font-weight:600;color:var(--text-primary);font-size:13px">
+                                                    Reset
+                                                    all mileage data</div>
+                                                <div style="font-size:12px;color:var(--text-tertiary)">This will
+                                                    permanently
+                                                    delete all mileage logs</div>
+                                            </div><button class="btn btn-sm btn-danger">Reset</button>
+                                        </div>
+                                        <div
+                                            style="display:flex;align-items:center;justify-content:space-between;padding:12px 0">
+                                            <div>
+                                                <div style="font-weight:600;color:var(--text-primary);font-size:13px">
+                                                    Export
+                                                    & Archive Data</div>
+                                                <div style="font-size:12px;color:var(--text-tertiary)">Download a full
+                                                    backup of all data</div>
+                                            </div><button class="btn btn-sm btn-secondary">Export</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Right Column: Account & Appearance -->
+                            <div>
+                                <div class="card" style="margin-bottom:20px">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-user-circle"
+                                                style="color:var(--primary-500);margin-right:8px;"></i>Account</h3>
+                                    </div>
+                                    <div class="card-body" style="text-align:center">
+                                        <div
+                                            style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--primary-400),#a855f7);display:flex;align-items:center;justify-content:center;color:white;font-size:28px;font-weight:700;margin:0 auto 12px">
+                                            RK</div>
+                                        <div style="font-weight:700;font-size:16px;color:var(--text-primary)">Rajesh
+                                            Kumar
+                                        </div>
+                                        <div style="font-size:13px;color:var(--text-tertiary);margin-bottom:16px">Fleet
+                                            Administrator</div>
+                                        <div class="divider"></div>
+                                        <div class="form-group"><label class="form-label">Display Name</label><input
+                                                type="text" class="form-input" value="Rajesh Kumar"></div>
+                                        <div class="form-group"><label class="form-label">Email</label><input
+                                                type="email" class="form-input" value="rajesh.kumar@dps45.edu.in"></div>
+                                        <button class="btn btn-primary" style="width:100%;margin-top:8px"><i
+                                                class="fas fa-save"></i> Save Changes</button>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-palette"
+                                                style="color:var(--purple-500,#8b5cf6);margin-right:8px;"></i>Appearance
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <label class="toggle-switch"><input type="checkbox" id="settingsDarkMode"><span
+                                                class="toggle-track"></span><span class="toggle-label">Dark
+                                                Mode</span></label>
+                                        <div class="divider"></div>
+                                        <div class="form-group"><label class="form-label">Language</label><select
+                                                class="form-select">
+                                                <option>English</option>
+                                                <option>Hindi</option>
+                                            </select></div>
+                                        <div class="form-group"><label class="form-label">Currency</label><select
+                                                class="form-select">
+                                                <option>INR (₹)</option>
+                                                <option>USD ($)</option>
+                                            </select></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
