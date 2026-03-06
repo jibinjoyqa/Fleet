@@ -2834,6 +2834,10 @@ ul {
     grid-column: span 8;
 }
 
+.data-table-compact {
+    min-width: 0;
+}
+
 .data-table-compact thead th {
     padding: 10px 12px;
 }
