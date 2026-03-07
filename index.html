@@ -98,6 +98,28 @@
                     <span class="nav-icon"><i class="fas fa-project-diagram"></i></span> Route Optimizer
                     <span class="nav-badge" style="background:var(--success-500)">AI</span>
                 </a>
+                <div class="nav-section-label">School Management</div>
+                <a class="nav-item" data-page="parent-portal" id="nav-parent-portal">
+                    <span class="nav-icon"><i class="fas fa-user-friends"></i></span> Parent Portal
+                </a>
+                <a class="nav-item" data-page="timetable" id="nav-timetable">
+                    <span class="nav-icon"><i class="fas fa-calendar-alt"></i></span> Exam & Timetable
+                </a>
+                <a class="nav-item" data-page="geofencing" id="nav-geofencing">
+                    <span class="nav-icon"><i class="fas fa-map-pin"></i></span> GPS Geofencing
+                    <span class="nav-badge" style="background:var(--danger-500)">2</span>
+                </a>
+                <a class="nav-item" data-page="fuel-analytics" id="nav-fuel-analytics">
+                    <span class="nav-icon"><i class="fas fa-chart-area"></i></span> Fuel Analytics
+                    <span class="nav-badge" style="background:var(--warning-500)">AI</span>
+                </a>
+                <a class="nav-item" data-page="compliance" id="nav-compliance">
+                    <span class="nav-icon"><i class="fas fa-shield-alt"></i></span> Compliance & Audit
+                </a>
+                <a class="nav-item" data-page="helpdesk" id="nav-helpdesk">
+                    <span class="nav-icon"><i class="fas fa-headset"></i></span> Help Desk
+                    <span class="nav-badge">8</span>
+                </a>
                 <div class="nav-section-label">Insights</div>
                 <a class="nav-item" data-page="performance" id="nav-performance">
                     <span class="nav-icon"><i class="fas fa-tachometer-alt"></i></span> Driver Performance
@@ -378,9 +400,11 @@
                                                 <tbody></tbody>
                                             </table>
                                         </div>
-                                        <div class="card-footer best-driver-banner" style="border-top:none;padding-left:0">
+                                        <div class="card-footer best-driver-banner"
+                                            style="border-top:none;padding-left:0">
                                             <i class="fas fa-trophy"></i>
-                                            <span>Best Driver of the Month: <strong id="bestDriverName">—</strong></span>
+                                            <span>Best Driver of the Month: <strong
+                                                    id="bestDriverName">—</strong></span>
                                         </div>
                                     </div>
                                     <div>
@@ -2688,7 +2712,616 @@
                             </div>
                         </div>
                     </div>
-                </div>
+
+
+                    <!-- ======== PARENT PORTAL PAGE ======== -->
+                    <div class="page-view" id="page-parent-portal">
+                        <div class="page-header">
+                            <div>
+                                <h1 class="page-title">Parent Portal</h1>
+                                <p class="page-subtitle">Parent engagement, child tracking status, fee receipts, and
+                                    feedback.</p>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn btn-secondary"><i class="fas fa-file-export"></i> Export</button>
+                                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Invite Parent</button>
+                            </div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card blue animate-slide-up animate-slide-up-delay-1">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-user-friends"></i></div>
+                                    <span class="metric-change up">↑ 12%</span>
+                                </div>
+                                <div class="metric-value">1,180</div>
+                                <div class="metric-label">Registered Parents</div>
+                            </div>
+                            <div class="metric-card green animate-slide-up animate-slide-up-delay-2">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-mobile-alt"></i></div>
+                                    <span class="metric-change up">↑ 8%</span>
+                                </div>
+                                <div class="metric-value">945</div>
+                                <div class="metric-label">App Installations</div>
+                            </div>
+                            <div class="metric-card purple animate-slide-up animate-slide-up-delay-3">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-star"></i></div>
+                                    <span class="metric-change up">↑ 0.2</span>
+                                </div>
+                                <div class="metric-value">4.6</div>
+                                <div class="metric-label">Satisfaction Score</div>
+                            </div>
+                            <div class="metric-card amber animate-slide-up animate-slide-up-delay-4">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-comment-dots"></i></div>
+                                    <span class="metric-change down">↑ 3</span>
+                                </div>
+                                <div class="metric-value">7</div>
+                                <div class="metric-label">Pending Grievances</div>
+                            </div>
+                        </div>
+                        <div class="content-grid grid-7-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-child"
+                                            style="color:var(--primary-500);margin-right:8px;"></i>Student Pickup/Drop
+                                        Status</h3>
+                                    <div class="tabs-bar" style="margin-bottom:0"><button
+                                            class="tab-btn active">Today</button><button class="tab-btn">This
+                                            Week</button></div>
+                                </div>
+                                <div class="data-table-wrapper">
+                                    <table class="data-table" id="parentPickupTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Student</th>
+                                                <th>Class</th>
+                                                <th>Bus</th>
+                                                <th>Pickup</th>
+                                                <th>Drop</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card" style="margin-bottom:20px">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-receipt"
+                                                style="color:var(--success-500);margin-right:8px;"></i>Recent Fee
+                                            Receipts</h3>
+                                    </div>
+                                    <div class="card-body" id="parentFeeReceipts"></div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-star-half-alt"
+                                                style="color:var(--warning-500);margin-right:8px;"></i>Parent Feedback
+                                        </h3>
+                                    </div>
+                                    <div class="card-body" id="parentFeedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-grid grid-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-chart-line"
+                                            style="color:var(--primary-500);margin-right:8px;"></i>Parent App Engagement
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container tall"><canvas id="parentEngagementChart"></canvas></div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-chart-pie"
+                                            style="color:var(--success-500);margin-right:8px;"></i>Feedback Categories
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container tall"><canvas id="feedbackCategoryChart"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======== EXAM & TIMETABLE PAGE ======== -->
+                    <div class="page-view" id="page-timetable">
+                        <div class="page-header">
+                            <div>
+                                <h1 class="page-title">Exam & Timetable</h1>
+                                <p class="page-subtitle">Manage transport schedules around exams and special timings.
+                                </p>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn btn-secondary"><i class="fas fa-print"></i> Print Schedule</button>
+                                <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Exam Schedule</button>
+                            </div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card red animate-slide-up animate-slide-up-delay-1">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-calendar-day"></i></div>
+                                </div>
+                                <div class="metric-value">4</div>
+                                <div class="metric-label">Upcoming Exams</div>
+                            </div>
+                            <div class="metric-card blue animate-slide-up animate-slide-up-delay-2">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-clock"></i></div>
+                                </div>
+                                <div class="metric-value">6</div>
+                                <div class="metric-label">Special Schedules</div>
+                            </div>
+                            <div class="metric-card green animate-slide-up animate-slide-up-delay-3">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-route"></i></div>
+                                </div>
+                                <div class="metric-value">18</div>
+                                <div class="metric-label">Active Routes</div>
+                            </div>
+                            <div class="metric-card amber animate-slide-up animate-slide-up-delay-4">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-exchange-alt"></i></div>
+                                </div>
+                                <div class="metric-value">3</div>
+                                <div class="metric-label">Adjusted Timings</div>
+                            </div>
+                        </div>
+                        <div class="content-grid grid-7-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-table"
+                                            style="color:var(--primary-500);margin-right:8px;"></i>Exam Transport
+                                        Schedule</h3>
+                                    <div class="tabs-bar" style="margin-bottom:0"><button
+                                            class="tab-btn active">March</button><button class="tab-btn">April</button>
+                                    </div>
+                                </div>
+                                <div class="data-table-wrapper">
+                                    <table class="data-table" id="examScheduleTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Exam</th>
+                                                <th>Classes</th>
+                                                <th>Pickup</th>
+                                                <th>Drop</th>
+                                                <th>Routes</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card" style="margin-bottom:20px">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-bell"
+                                                style="color:var(--warning-500);margin-right:8px;"></i>Schedule Changes
+                                        </h3>
+                                    </div>
+                                    <div class="card-body" id="timetableChanges"></div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-info-circle"
+                                                style="color:var(--primary-500);margin-right:8px;"></i>Note to Drivers
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <textarea class="form-input" rows="4"
+                                            placeholder="Add special instructions for drivers during exam period...">All buses must reach school 15 minutes before exam timing. No honking near school premises during exam hours.</textarea>
+                                        <div style="display:flex;justify-content:flex-end;margin-top:12px">
+                                            <button class="btn btn-primary btn-sm"><i class="fas fa-paper-plane"></i>
+                                                Notify All Drivers</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======== GPS GEOFENCING PAGE ======== -->
+                    <div class="page-view" id="page-geofencing">
+                        <div class="page-header">
+                            <div>
+                                <h1 class="page-title">GPS Geofencing</h1>
+                                <p class="page-subtitle">Define school zones, safe corridors, and speed-limit areas for
+                                    buses.</p>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn btn-secondary"><i class="fas fa-history"></i> Violation
+                                    History</button>
+                                <button class="btn btn-primary"><i class="fas fa-plus"></i> Create Geofence</button>
+                            </div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card green animate-slide-up animate-slide-up-delay-1">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-map-pin"></i></div>
+                                </div>
+                                <div class="metric-value">12</div>
+                                <div class="metric-label">Active Geofences</div>
+                            </div>
+                            <div class="metric-card red animate-slide-up animate-slide-up-delay-2">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-exclamation-circle"></i></div>
+                                    <span class="metric-change down">↑ 2</span>
+                                </div>
+                                <div class="metric-value">5</div>
+                                <div class="metric-label">Violations Today</div>
+                            </div>
+                            <div class="metric-card amber animate-slide-up animate-slide-up-delay-3">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                </div>
+                                <div class="metric-value">3</div>
+                                <div class="metric-label">Speed Alerts</div>
+                            </div>
+                            <div class="metric-card blue animate-slide-up animate-slide-up-delay-4">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-check-circle"></i></div>
+                                    <span class="metric-change up">↑ 2%</span>
+                                </div>
+                                <div class="metric-value">96%</div>
+                                <div class="metric-label">Zone Compliance</div>
+                            </div>
+                        </div>
+                        <div class="content-grid grid-7-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-draw-polygon"
+                                            style="color:var(--primary-500);margin-right:8px;"></i>Geofence Zones</h3>
+                                    <div class="tabs-bar" style="margin-bottom:0"><button
+                                            class="tab-btn active">All</button><button
+                                            class="tab-btn">School</button><button class="tab-btn">Speed</button><button
+                                            class="tab-btn">Safe</button></div>
+                                </div>
+                                <div class="data-table-wrapper">
+                                    <table class="data-table" id="geofenceTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Zone Name</th>
+                                                <th>Type</th>
+                                                <th>Radius</th>
+                                                <th>Speed Limit</th>
+                                                <th>Buses</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card" style="margin-bottom:20px">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-bell"
+                                                style="color:var(--danger-500);margin-right:8px;"></i>Recent Violations
+                                        </h3>
+                                    </div>
+                                    <div class="card-body" id="geofenceViolations"></div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-chart-bar"
+                                                style="color:var(--success-500);margin-right:8px;"></i>Violations Trend
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-container"><canvas id="geofenceViolationsChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======== FUEL ANALYTICS PAGE ======== -->
+                    <div class="page-view" id="page-fuel-analytics">
+                        <div class="page-header">
+                            <div>
+                                <h1 class="page-title">Fuel Analytics</h1>
+                                <p class="page-subtitle">Deep fuel consumption analytics, AI-powered anomaly detection,
+                                    and cost predictions.</p>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn btn-secondary"><i class="fas fa-download"></i> Export Report</button>
+                                <button class="btn btn-primary"><i class="fas fa-robot"></i> Run AI Analysis</button>
+                            </div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card blue animate-slide-up animate-slide-up-delay-1">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-gas-pump"></i></div>
+                                    <span class="metric-change up">↑ 3%</span>
+                                </div>
+                                <div class="metric-value">5.8</div>
+                                <div class="metric-label">Avg km/l Fleet Wide</div>
+                            </div>
+                            <div class="metric-card red animate-slide-up animate-slide-up-delay-2">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-rupee-sign"></i></div>
+                                    <span class="metric-change down">↑ 8%</span>
+                                </div>
+                                <div class="metric-value">₹4.2L</div>
+                                <div class="metric-label">Monthly Fuel Spend</div>
+                            </div>
+                            <div class="metric-card amber animate-slide-up animate-slide-up-delay-3">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                                </div>
+                                <div class="metric-value">3</div>
+                                <div class="metric-label">Anomalies Detected</div>
+                            </div>
+                            <div class="metric-card green animate-slide-up animate-slide-up-delay-4">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-piggy-bank"></i></div>
+                                    <span class="metric-change up">↑ ₹18K</span>
+                                </div>
+                                <div class="metric-value">₹42K</div>
+                                <div class="metric-label">Cost Savings (MTD)</div>
+                            </div>
+                        </div>
+                        <div class="content-grid grid-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-chart-line"
+                                            style="color:var(--primary-500);margin-right:8px;"></i>Fuel Consumption
+                                        Trend</h3>
+                                    <div class="tabs-bar" style="margin-bottom:0"><button
+                                            class="tab-btn active">Weekly</button><button
+                                            class="tab-btn">Monthly</button></div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container tall"><canvas id="fuelConsumptionTrendChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-chart-bar"
+                                            style="color:var(--warning-500);margin-right:8px;"></i>Cost per KM — Bus
+                                        Comparison</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container tall"><canvas id="fuelCostPerKmChart"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-grid grid-7-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-robot"
+                                            style="color:var(--danger-500);margin-right:8px;"></i>AI Anomaly Detection
+                                    </h3>
+                                    <span class="status-badge critical"><span class="status-dot"></span>3 Alerts</span>
+                                </div>
+                                <div class="data-table-wrapper">
+                                    <table class="data-table" id="fuelAnomalyTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Bus</th>
+                                                <th>Date</th>
+                                                <th>Expected (L)</th>
+                                                <th>Actual (L)</th>
+                                                <th>Deviation</th>
+                                                <th>Type</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-brain"
+                                            style="color:var(--success-500);margin-right:8px;"></i>AI Savings Insights
+                                    </h3>
+                                </div>
+                                <div class="card-body" id="fuelSavingsInsights"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======== COMPLIANCE & AUDIT PAGE ======== -->
+                    <div class="page-view" id="page-compliance">
+                        <div class="page-header">
+                            <div>
+                                <h1 class="page-title">Compliance & Audit</h1>
+                                <p class="page-subtitle">Track RTO compliance, pollution certificates, insurance, and
+                                    audit trails.</p>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn btn-secondary"><i class="fas fa-file-pdf"></i> Audit Report</button>
+                                <button class="btn btn-primary"><i class="fas fa-plus"></i> Schedule Audit</button>
+                            </div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card green animate-slide-up animate-slide-up-delay-1">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-shield-alt"></i></div>
+                                    <span class="metric-change up">↑ 4%</span>
+                                </div>
+                                <div class="metric-value">94%</div>
+                                <div class="metric-label">Overall Compliance</div>
+                            </div>
+                            <div class="metric-card amber animate-slide-up animate-slide-up-delay-2">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-certificate"></i></div>
+                                </div>
+                                <div class="metric-value">5</div>
+                                <div class="metric-label">Certificates Expiring</div>
+                            </div>
+                            <div class="metric-card blue animate-slide-up animate-slide-up-delay-3">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-clipboard-check"></i></div>
+                                </div>
+                                <div class="metric-value">2</div>
+                                <div class="metric-label">Pending Audits</div>
+                            </div>
+                            <div class="metric-card red animate-slide-up animate-slide-up-delay-4">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-gavel"></i></div>
+                                </div>
+                                <div class="metric-value">1</div>
+                                <div class="metric-label">Violations</div>
+                            </div>
+                        </div>
+                        <div class="content-grid grid-7-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-file-alt"
+                                            style="color:var(--primary-500);margin-right:8px;"></i>Vehicle Compliance
+                                        Status</h3>
+                                    <div class="header-search" style="width:200px"><i
+                                            class="fas fa-search search-icon"></i><input type="text"
+                                            placeholder="Search bus..."></div>
+                                </div>
+                                <div class="data-table-wrapper">
+                                    <table class="data-table" id="complianceTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Bus</th>
+                                                <th>Insurance</th>
+                                                <th>Permit</th>
+                                                <th>PUC</th>
+                                                <th>Fitness</th>
+                                                <th>Driver License</th>
+                                                <th>Score</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card" style="margin-bottom:20px">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-chart-pie"
+                                                style="color:var(--success-500);margin-right:8px;"></i>Compliance Score
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-container"><canvas id="complianceScoreChart"></canvas></div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-history"
+                                                style="color:var(--warning-500);margin-right:8px;"></i>Audit Trail</h3>
+                                    </div>
+                                    <div class="card-body" id="auditTrailList"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======== HELP DESK & TICKETING PAGE ======== -->
+                    <div class="page-view" id="page-helpdesk">
+                        <div class="page-header">
+                            <div>
+                                <h1 class="page-title">Help Desk & Ticketing</h1>
+                                <p class="page-subtitle">Manage support tickets from parents, drivers, and staff.</p>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn btn-secondary"><i class="fas fa-filter"></i> Filter</button>
+                                <button class="btn btn-primary"><i class="fas fa-plus"></i> Create Ticket</button>
+                            </div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card red animate-slide-up animate-slide-up-delay-1">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-ticket-alt"></i></div>
+                                    <span class="metric-change down">↑ 3</span>
+                                </div>
+                                <div class="metric-value">8</div>
+                                <div class="metric-label">Open Tickets</div>
+                            </div>
+                            <div class="metric-card blue animate-slide-up animate-slide-up-delay-2">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-clock"></i></div>
+                                    <span class="metric-change up">↓ 2h</span>
+                                </div>
+                                <div class="metric-value">4.2h</div>
+                                <div class="metric-label">Avg Resolution Time</div>
+                            </div>
+                            <div class="metric-card green animate-slide-up animate-slide-up-delay-3">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-smile"></i></div>
+                                    <span class="metric-change up">↑ 5%</span>
+                                </div>
+                                <div class="metric-value">92%</div>
+                                <div class="metric-label">Satisfaction Rate</div>
+                            </div>
+                            <div class="metric-card amber animate-slide-up animate-slide-up-delay-4">
+                                <div class="metric-header">
+                                    <div class="metric-icon"><i class="fas fa-exclamation-circle"></i></div>
+                                </div>
+                                <div class="metric-value">2</div>
+                                <div class="metric-label">SLA Breach</div>
+                            </div>
+                        </div>
+                        <div class="content-grid grid-7-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-list"
+                                            style="color:var(--primary-500);margin-right:8px;"></i>Active Tickets</h3>
+                                    <div class="tabs-bar" style="margin-bottom:0"><button
+                                            class="tab-btn active">All</button><button
+                                            class="tab-btn">High</button><button class="tab-btn">Medium</button><button
+                                            class="tab-btn">Low</button></div>
+                                </div>
+                                <div class="data-table-wrapper">
+                                    <table class="data-table" id="helpdeskTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Ticket #</th>
+                                                <th>Subject</th>
+                                                <th>From</th>
+                                                <th>Priority</th>
+                                                <th>Status</th>
+                                                <th>Assigned</th>
+                                                <th>Age</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card" style="margin-bottom:20px">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-chart-line"
+                                                style="color:var(--success-500);margin-right:8px;"></i>Resolution Trend
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-container"><canvas id="ticketResolutionChart"></canvas></div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-chart-pie"
+                                                style="color:var(--warning-500);margin-right:8px;"></i>Tickets by
+                                            Category</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-container"><canvas id="ticketCategoryChart"></canvas></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
         </main>
     </div>
     <script src="app.js"></script>

@@ -32,6 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
     populateDevicesPage();
     populatePerformancePage();
     populateBudgetPage();
+    populateParentPortalPage();
+    populateExamTimetablePage();
+    populateGeofencingPage();
+    populateFuelAnalyticsPage();
+    populateCompliancePage();
+    populateHelpdeskPage();
 
 });
 
@@ -64,6 +70,11 @@ function initNavigation() {
             if (page === 'inventory') initInventoryChart();
             if (page === 'performance') initSafetyTrendChart();
             if (page === 'budget') initBudgetChart();
+            if (page === 'parent-portal') initParentPortalCharts();
+            if (page === 'geofencing') initGeofenceViolationsChart();
+            if (page === 'fuel-analytics') initFuelAnalyticsCharts();
+            if (page === 'compliance') initComplianceScoreChart();
+            if (page === 'helpdesk') initHelpdeskCharts();
         });
     });
 }
@@ -125,6 +136,11 @@ function reinitChartsForActivePage() {
     if (page === 'inventory') initInventoryChart();
     if (page === 'performance') initSafetyTrendChart();
     if (page === 'budget') initBudgetChart();
+    if (page === 'parent-portal') initParentPortalCharts();
+    if (page === 'geofencing') initGeofenceViolationsChart();
+    if (page === 'fuel-analytics') initFuelAnalyticsCharts();
+    if (page === 'compliance') initComplianceScoreChart();
+    if (page === 'helpdesk') initHelpdeskCharts();
 }
 
 /* ---- Mobile Menu ---- */
@@ -1551,4 +1567,390 @@ function initSafetyTrendChart() {
             }
         }
     });
+}
+
+/* ============================================
+   PARENT PORTAL MODULE
+   ============================================ */
+
+function populateParentPortalPage() {
+    const pickupData = [
+        { student: 'Aarav Patel', cls: '8-B', bus: 'Bus 101', pickup: '7:15 AM', drop: '2:30 PM', status: 'good', statusText: 'On Time' },
+        { student: 'Priya Sharma', cls: '7-A', bus: 'Bus 202', pickup: '7:20 AM', drop: '2:35 PM', status: 'good', statusText: 'On Time' },
+        { student: 'Rohan Gupta', cls: '9-C', bus: 'Bus 303', pickup: '7:10 AM', drop: '2:25 PM', status: 'warning', statusText: 'Delayed' },
+        { student: 'Ananya Singh', cls: '6-B', bus: 'Bus 101', pickup: '7:18 AM', drop: '2:32 PM', status: 'good', statusText: 'On Time' },
+        { student: 'Vikram Reddy', cls: '10-A', bus: 'Bus 404', pickup: '7:25 AM', drop: '—', status: 'critical', statusText: 'Absent' },
+        { student: 'Diya Nair', cls: '5-A', bus: 'Bus 606', pickup: '7:05 AM', drop: '2:20 PM', status: 'good', statusText: 'On Time' },
+        { student: 'Karthik M.', cls: '8-A', bus: 'Bus 808', pickup: '7:22 AM', drop: '2:38 PM', status: 'good', statusText: 'On Time' },
+        { student: 'Sneha Joshi', cls: '7-C', bus: 'Bus 202', pickup: '7:19 AM', drop: '2:34 PM', status: 'good', statusText: 'On Time' },
+    ];
+    const pt = document.querySelector('#parentPickupTable tbody');
+    if (pt) pt.innerHTML = pickupData.map(d => `<tr>
+        <td>${d.student}</td><td>${d.cls}</td><td>${d.bus}</td><td>${d.pickup}</td><td>${d.drop}</td>
+        <td><span class="status-badge ${d.status}"><span class="status-dot"></span>${d.statusText}</span></td>
+    </tr>`).join('');
+
+    const receipts = [
+        { id: 'REC-2026-1245', student: 'Aarav Patel', amount: '\u20b93,250', date: 'Mar 01, 2026', mode: 'Online' },
+        { id: 'REC-2026-1244', student: 'Priya Sharma', amount: '\u20b92,800', date: 'Mar 01, 2026', mode: 'Cash' },
+        { id: 'REC-2026-1240', student: 'Diya Nair', amount: '\u20b93,800', date: 'Feb 28, 2026', mode: 'Cheque' },
+        { id: 'REC-2026-1238', student: 'Karthik M.', amount: '\u20b92,400', date: 'Feb 28, 2026', mode: 'Online' },
+    ];
+    const fr = document.getElementById('parentFeeReceipts');
+    if (fr) fr.innerHTML = receipts.map(r => `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border-light)">
+        <div>
+            <div style="font-weight:600;font-size:13px;color:var(--text-primary)">${r.id} \u2014 ${r.student}</div>
+            <div style="font-size:12px;color:var(--text-tertiary)">${r.date} \u00b7 ${r.mode}</div>
+        </div>
+        <div style="font-weight:700;color:var(--success-500)">${r.amount}</div>
+    </div>`).join('');
+
+    const feedbackItems = [
+        { parent: 'Mrs. Meena Patel', rating: 5, text: 'Very happy with the bus service. Driver is punctual.', time: '2 days ago' },
+        { parent: 'Mr. Raj Sharma', rating: 4, text: 'Good service, but bus was late twice last week.', time: '3 days ago' },
+        { parent: 'Mrs. Sunita Gupta', rating: 3, text: 'AC not working properly in Bus 303.', time: '5 days ago' },
+    ];
+    const fb = document.getElementById('parentFeedback');
+    if (fb) fb.innerHTML = feedbackItems.map(f => {
+        const stars = Array.from({ length: 5 }, (_, i) => `<i class="fas fa-star" style="color:${i < f.rating ? '#f59e0b' : 'var(--gray-300)'};font-size:11px;"></i>`).join('');
+        return `<div style="padding:12px 0;border-bottom:1px solid var(--border-light)">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+                <div style="font-weight:600;font-size:13px;color:var(--text-primary)">${f.parent}</div>
+                <div>${stars}</div>
+            </div>
+            <div style="font-size:13px;color:var(--text-secondary)">${f.text}</div>
+            <div style="font-size:11px;color:var(--text-tertiary);margin-top:4px">${f.time}</div>
+        </div>`;
+    }).join('');
+}
+
+function initParentPortalCharts() {
+    if (CI.pe) return;
+    const c = gc();
+    const pe = document.getElementById('parentEngagementChart');
+    if (pe) {
+        CI.pe = new Chart(pe, {
+            type: 'line',
+            data: {
+                labels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'],
+                datasets: [
+                    { label: 'Daily Active Users', data: [420, 480, 510, 560, 620, 680], borderColor: c.blue, backgroundColor: c.blueBg, fill: true, tension: 0.4, pointRadius: 4 },
+                    { label: 'Notifications Read', data: [380, 410, 450, 510, 580, 640], borderColor: c.green, backgroundColor: c.greenBg, fill: true, tension: 0.4, pointRadius: 4 }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: lp(c) }, scales: ds() }
+        });
+    }
+    const fc = document.getElementById('feedbackCategoryChart');
+    if (fc) {
+        CI.fc = new Chart(fc, {
+            type: 'doughnut',
+            data: {
+                labels: ['Punctuality', 'Driver Behavior', 'Bus Condition', 'Route Issues', 'Fee Queries'],
+                datasets: [{ data: [35, 20, 18, 15, 12], backgroundColor: [c.blue, c.green, c.amber, c.red, c.purple], borderWidth: 0, spacing: 3 }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { color: c.text, padding: 12, usePointStyle: true, pointStyle: 'circle' } } } }
+        });
+    }
+}
+
+/* ============================================
+   EXAM & TIMETABLE MODULE
+   ============================================ */
+
+function populateExamTimetablePage() {
+    const examData = [
+        { date: 'Mar 10', exam: 'Unit Test 4 \u2014 Maths', classes: '6-8', pickup: '7:00 AM', drop: '11:30 AM', routes: '14/18', status: 'good', statusText: 'Confirmed' },
+        { date: 'Mar 12', exam: 'Unit Test 4 \u2014 Science', classes: '6-8', pickup: '7:00 AM', drop: '11:30 AM', routes: '14/18', status: 'good', statusText: 'Confirmed' },
+        { date: 'Mar 15', exam: 'Pre-Board \u2014 English', classes: '10, 12', pickup: '7:30 AM', drop: '12:30 PM', routes: '8/18', status: 'warning', statusText: 'Pending' },
+        { date: 'Mar 17', exam: 'Pre-Board \u2014 Maths', classes: '10, 12', pickup: '7:30 AM', drop: '12:30 PM', routes: '8/18', status: 'warning', statusText: 'Pending' },
+        { date: 'Mar 22', exam: 'Annual Exam Day 1', classes: 'All', pickup: '7:00 AM', drop: '1:00 PM', routes: '18/18', status: 'critical', statusText: 'Draft' },
+        { date: 'Mar 24', exam: 'Annual Exam Day 2', classes: 'All', pickup: '7:00 AM', drop: '1:00 PM', routes: '18/18', status: 'critical', statusText: 'Draft' },
+    ];
+    const et = document.querySelector('#examScheduleTable tbody');
+    if (et) et.innerHTML = examData.map(d => `<tr>
+        <td style="font-weight:600">${d.date}</td><td>${d.exam}</td><td>${d.classes}</td>
+        <td>${d.pickup}</td><td>${d.drop}</td><td>${d.routes}</td>
+        <td><span class="status-badge ${d.status}"><span class="status-dot"></span>${d.statusText}</span></td>
+    </tr>`).join('');
+
+    const changes = [
+        { text: 'Pre-Board pickup time changed from 7:00 AM to 7:30 AM', time: 'Today, 10:15 AM', color: 'var(--warning-500)' },
+        { text: 'Annual Exam route allocation updated \u2014 all 18 routes active', time: 'Yesterday, 4:30 PM', color: 'var(--primary-500)' },
+        { text: 'Unit Test 4 schedule confirmed by Principal', time: 'Mar 04, 11:00 AM', color: 'var(--success-500)' },
+    ];
+    const tc = document.getElementById('timetableChanges');
+    if (tc) tc.innerHTML = changes.map(ch => `<div style="border-left:4px solid ${ch.color};background:var(--bg-surface);padding:12px;margin-bottom:10px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.05)">
+        <div style="font-weight:600;font-size:13px;color:var(--text-primary);margin-bottom:4px">${ch.text}</div>
+        <div style="font-size:12px;color:var(--text-tertiary)">${ch.time}</div>
+    </div>`).join('');
+}
+
+/* ============================================
+   GPS GEOFENCING MODULE
+   ============================================ */
+
+function populateGeofencingPage() {
+    const zones = [
+        { name: 'DPS School Campus', type: 'School Zone', radius: '200m', speed: '15 km/h', buses: '24/24', status: 'good', statusText: 'Active' },
+        { name: 'Sector 22 Residential', type: 'Safe Zone', radius: '500m', speed: '30 km/h', buses: '6/6', status: 'good', statusText: 'Active' },
+        { name: 'NH-48 Highway Section', type: 'Speed Zone', radius: '2 km', speed: '50 km/h', buses: '8/8', status: 'good', statusText: 'Active' },
+        { name: 'Railway Crossing - MG Rd', type: 'Caution Zone', radius: '150m', speed: '10 km/h', buses: '4/4', status: 'warning', statusText: 'Alert' },
+        { name: 'IT Park Drop Zone', type: 'Safe Zone', radius: '300m', speed: '20 km/h', buses: '5/5', status: 'good', statusText: 'Active' },
+        { name: 'Civil Lines Market', type: 'Speed Zone', radius: '400m', speed: '25 km/h', buses: '3/3', status: 'good', statusText: 'Active' },
+        { name: 'Lake Road School Zone', type: 'School Zone', radius: '200m', speed: '15 km/h', buses: '4/4', status: 'good', statusText: 'Active' },
+        { name: 'DLF Phase 3 Colony', type: 'Safe Zone', radius: '600m', speed: '25 km/h', buses: '5/5', status: 'good', statusText: 'Active' },
+    ];
+    const gt = document.querySelector('#geofenceTable tbody');
+    if (gt) gt.innerHTML = zones.map(z => {
+        const colorMap = { 'School Zone': 'primary', 'Speed Zone': 'warning', 'Caution Zone': 'danger', 'Safe Zone': 'success' };
+        const tc = colorMap[z.type] || 'primary';
+        return `<tr>
+            <td style="font-weight:600">${z.name}</td>
+            <td><span class="status-badge" style="background:var(--${tc}-50);color:var(--${tc}-600);border:1px solid var(--${tc}-200)">${z.type}</span></td>
+            <td>${z.radius}</td><td>${z.speed}</td><td>${z.buses}</td>
+            <td><span class="status-badge ${z.status}"><span class="status-dot"></span>${z.statusText}</span></td>
+            <td><button class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></button></td>
+        </tr>`;
+    }).join('');
+
+    const violations = [
+        { bus: 'Bus 303', zone: 'DPS School Campus', type: 'Speed', detail: '28 km/h in 15 km/h zone', time: 'Today, 7:42 AM', color: 'var(--danger-500)' },
+        { bus: 'Bus 707', zone: 'Railway Crossing', type: 'Speed', detail: '22 km/h in 10 km/h zone', time: 'Today, 7:38 AM', color: 'var(--danger-500)' },
+        { bus: 'Bus 404', zone: 'NH-48 Highway', type: 'Route Deviation', detail: 'Left geofenced corridor for 3.2 km', time: 'Today, 7:25 AM', color: 'var(--warning-500)' },
+        { bus: 'Bus 505', zone: 'Sector 22', type: 'Unauthorized Stop', detail: 'Stopped outside designated zone for 8 mins', time: 'Yesterday, 2:15 PM', color: 'var(--warning-500)' },
+        { bus: 'Bus 101', zone: 'Civil Lines', type: 'Speed', detail: '35 km/h in 25 km/h zone', time: 'Yesterday, 7:55 AM', color: 'var(--danger-500)' },
+    ];
+    const gv = document.getElementById('geofenceViolations');
+    if (gv) gv.innerHTML = violations.map(v => `<div style="border-left:4px solid ${v.color};background:var(--bg-surface);padding:12px;margin-bottom:10px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.05)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+            <div style="font-weight:600;font-size:13px;color:var(--text-primary)">${v.bus} \u2014 ${v.type}</div>
+            <span class="status-badge critical" style="font-size:10px"><span class="status-dot"></span>${v.type}</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-secondary)">${v.detail}</div>
+        <div style="font-size:11px;color:var(--text-tertiary);margin-top:4px">${v.zone} \u00b7 ${v.time}</div>
+    </div>`).join('');
+}
+
+function initGeofenceViolationsChart() {
+    if (CI.gv) return;
+    const ctx = document.getElementById('geofenceViolationsChart');
+    if (!ctx) return;
+    const c = gc();
+    CI.gv = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            datasets: [
+                { label: 'Speed Violations', data: [3, 2, 4, 1, 3, 2], backgroundColor: c.red, borderRadius: 4, barPercentage: 0.7 },
+                { label: 'Route Deviations', data: [1, 1, 0, 2, 1, 0], backgroundColor: c.amber, borderRadius: 4, barPercentage: 0.7 },
+                { label: 'Zone Exits', data: [0, 1, 1, 0, 1, 1], backgroundColor: c.blue, borderRadius: 4, barPercentage: 0.7 }
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: lp(c) }, scales: { ...ds(), x: { ...ds().x, stacked: true }, y: { ...ds().y, stacked: true } } }
+    });
+}
+
+/* ============================================
+   FUEL ANALYTICS MODULE
+   ============================================ */
+
+function populateFuelAnalyticsPage() {
+    const anomalies = [
+        { bus: 'Bus 505', date: 'Mar 05', expected: '38', actual: '52', deviation: '+36.8%', type: 'Suspected Theft', status: 'critical', statusText: 'Investigating' },
+        { bus: 'Bus 707', date: 'Mar 04', expected: '42', actual: '55', deviation: '+31.0%', type: 'Excess Consumption', status: 'warning', statusText: 'Under Review' },
+        { bus: 'Bus 303', date: 'Mar 03', expected: '58', actual: '72', deviation: '+24.1%', type: 'Route Deviation', status: 'warning', statusText: 'Noted' },
+    ];
+    const at = document.querySelector('#fuelAnomalyTable tbody');
+    if (at) at.innerHTML = anomalies.map(a => `<tr>
+        <td style="font-weight:600">${a.bus}</td><td>${a.date}</td><td>${a.expected}</td><td>${a.actual}</td>
+        <td style="font-weight:700;color:var(--danger-500)">${a.deviation}</td>
+        <td><span class="status-badge ${a.status}" style="font-size:11px"><span class="status-dot"></span>${a.type}</span></td>
+        <td><span class="status-badge ${a.status}"><span class="status-dot"></span>${a.statusText}</span></td>
+    </tr>`).join('');
+
+    const insights = [
+        { icon: 'fa-route', title: 'Optimize Route 4', desc: 'Shorten by 2.3 km \u2192 Save \u20b98,400/month in fuel', color: 'var(--success-500)' },
+        { icon: 'fa-tachometer-alt', title: 'Speed Compliance', desc: 'Enforce 40 km/h limit \u2192 12% fuel efficiency gain', color: 'var(--primary-500)' },
+        { icon: 'fa-gas-pump', title: 'Bulk Fuel Purchase', desc: 'Partner with Indian Oil for \u20b92.50/L discount \u2192 \u20b915,000/month savings', color: 'var(--warning-500)' },
+        { icon: 'fa-wrench', title: 'Engine Tune-up', desc: 'Bus 505 & 707 need urgent service \u2192 18% efficiency drop detected', color: 'var(--danger-500)' },
+    ];
+    const si = document.getElementById('fuelSavingsInsights');
+    if (si) si.innerHTML = insights.map(ins => `<div style="display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border-light)">
+        <div style="width:36px;height:36px;border-radius:8px;background:${ins.color}15;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas ${ins.icon}" style="color:${ins.color};font-size:14px"></i></div>
+        <div>
+            <div style="font-weight:600;font-size:13px;color:var(--text-primary)">${ins.title}</div>
+            <div style="font-size:12px;color:var(--text-secondary);margin-top:2px">${ins.desc}</div>
+        </div>
+    </div>`).join('');
+}
+
+function initFuelAnalyticsCharts() {
+    const c = gc();
+    if (!CI.fct) {
+        const ctx = document.getElementById('fuelConsumptionTrendChart');
+        if (ctx) {
+            CI.fct = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    datasets: [
+                        { label: 'Fleet Average (L)', data: [285, 290, 275, 295, 288, 270], borderColor: c.blue, backgroundColor: c.blueBg, fill: true, tension: 0.4, pointRadius: 5, borderWidth: 2.5 },
+                        { label: 'Expected (L)', data: [280, 280, 280, 280, 280, 280], borderColor: c.green, borderDash: [6, 4], pointRadius: 0, fill: false, borderWidth: 2 },
+                        { label: 'Bus 505 (L)', data: [52, 55, 48, 58, 54, 50], borderColor: c.red, tension: 0.4, pointRadius: 4, borderWidth: 2 }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: lp(c) }, scales: ds() }
+            });
+        }
+    }
+    if (!CI.fck) {
+        const ctx2 = document.getElementById('fuelCostPerKmChart');
+        if (ctx2) {
+            CI.fck = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['Bus 101', 'Bus 202', 'Bus 303', 'Bus 404', 'Bus 505', 'Bus 606', 'Bus 707', 'Bus 808'],
+                    datasets: [{
+                        label: 'Cost/km (\u20b9)',
+                        data: [14.8, 15.2, 16.8, 15.5, 19.2, 14.1, 18.5, 13.9],
+                        backgroundColor: function (ctx) { return ctx.raw > 17 ? c.red : ctx.raw > 15 ? c.amber : c.green; },
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { ...ds(), y: { ...ds().y, title: { display: true, text: 'Cost per KM (\u20b9)', color: c.text, font: { size: 11 } } } }
+                }
+            });
+        }
+    }
+}
+
+/* ============================================
+   COMPLIANCE & AUDIT MODULE
+   ============================================ */
+
+function populateCompliancePage() {
+    const complianceData = [
+        { bus: 'Bus 101', insurance: 'Valid', permit: 'Valid', puc: 'Valid', fitness: 'Valid', license: 'Valid', score: 100 },
+        { bus: 'Bus 202', insurance: 'Valid', permit: 'Valid', puc: 'Expiring', fitness: 'Valid', license: 'Valid', score: 90 },
+        { bus: 'Bus 303', insurance: 'Valid', permit: 'Expiring', puc: 'Valid', fitness: 'Expired', license: 'Valid', score: 70 },
+        { bus: 'Bus 404', insurance: 'Valid', permit: 'Valid', puc: 'Valid', fitness: 'Valid', license: 'Expiring', score: 85 },
+        { bus: 'Bus 505', insurance: 'Expired', permit: 'Valid', puc: 'Expired', fitness: 'Valid', license: 'Valid', score: 60 },
+        { bus: 'Bus 606', insurance: 'Valid', permit: 'Valid', puc: 'Valid', fitness: 'Valid', license: 'Valid', score: 100 },
+        { bus: 'Bus 707', insurance: 'Valid', permit: 'Expiring', puc: 'Valid', fitness: 'Valid', license: 'Expired', score: 65 },
+        { bus: 'Bus 808', insurance: 'Valid', permit: 'Valid', puc: 'Valid', fitness: 'Valid', license: 'Valid', score: 100 },
+    ];
+    const badgeFn = function (s) { return s === 'Valid' ? '<span class="status-badge good"><span class="status-dot"></span>Valid</span>' : s === 'Expiring' ? '<span class="status-badge warning"><span class="status-dot"></span>Expiring</span>' : '<span class="status-badge critical"><span class="status-dot"></span>Expired</span>'; };
+    const scoreBadge = function (s) {
+        const cls = s >= 90 ? 'green' : s >= 70 ? 'amber' : 'red';
+        return '<div style="display:flex;align-items:center;gap:8px"><div class="progress-bar" style="width:60px"><div class="progress-fill ' + cls + '" style="width:' + s + '%"></div></div><span style="font-weight:700;font-size:12px;color:var(--text-primary)">' + s + '%</span></div>';
+    };
+    const ct = document.querySelector('#complianceTable tbody');
+    if (ct) ct.innerHTML = complianceData.map(d => `<tr>
+        <td style="font-weight:600">${d.bus}</td>
+        <td>${badgeFn(d.insurance)}</td><td>${badgeFn(d.permit)}</td><td>${badgeFn(d.puc)}</td>
+        <td>${badgeFn(d.fitness)}</td><td>${badgeFn(d.license)}</td><td>${scoreBadge(d.score)}</td>
+    </tr>`).join('');
+
+    const auditItems = [
+        { action: 'Insurance renewed for Bus 202', user: 'Rajesh Kumar', time: 'Today, 11:30 AM', icon: 'fa-shield-alt', color: 'var(--success-500)' },
+        { action: 'PUC test scheduled for Bus 505', user: 'Admin', time: 'Yesterday, 3:15 PM', icon: 'fa-calendar-check', color: 'var(--primary-500)' },
+        { action: 'Fitness certificate expired \u2014 Bus 303', user: 'System', time: 'Mar 02, 9:00 AM', icon: 'fa-exclamation-triangle', color: 'var(--danger-500)' },
+        { action: 'RTO inspection cleared \u2014 Bus 606', user: 'Vijay M.', time: 'Feb 28, 4:00 PM', icon: 'fa-check-circle', color: 'var(--success-500)' },
+        { action: 'Driver license renewal reminder \u2014 Bus 707', user: 'System', time: 'Feb 26, 10:00 AM', icon: 'fa-id-card', color: 'var(--warning-500)' },
+    ];
+    const al = document.getElementById('auditTrailList');
+    if (al) al.innerHTML = auditItems.map(a => `<div style="display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border-light)">
+        <div style="width:32px;height:32px;border-radius:8px;background:${a.color}15;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas ${a.icon}" style="color:${a.color};font-size:13px"></i></div>
+        <div style="flex:1">
+            <div style="font-weight:600;font-size:13px;color:var(--text-primary)">${a.action}</div>
+            <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px">by ${a.user} \u00b7 ${a.time}</div>
+        </div>
+    </div>`).join('');
+}
+
+function initComplianceScoreChart() {
+    if (CI.cs) return;
+    const ctx = document.getElementById('complianceScoreChart');
+    if (!ctx) return;
+    const c = gc();
+    CI.cs = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Fully Compliant', 'Expiring Soon', 'Non-Compliant'],
+            datasets: [{
+                data: [5, 2, 1],
+                backgroundColor: [c.green, c.amber, c.red],
+                borderWidth: 0,
+                spacing: 3
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false, cutout: '65%',
+            plugins: { legend: { position: 'bottom', labels: { color: c.text, padding: 14, usePointStyle: true, pointStyle: 'circle' } } }
+        }
+    });
+}
+
+/* ============================================
+   HELP DESK & TICKETING MODULE
+   ============================================ */
+
+function populateHelpdeskPage() {
+    const tickets = [
+        { id: 'TKT-2026-0089', subject: 'Bus 303 AC not working', from: 'Mrs. Sunita Gupta (Parent)', priority: 'High', priorityCls: 'critical', status: 'Open', statusCls: 'critical', assigned: 'Maintenance Team', age: '2h' },
+        { id: 'TKT-2026-0088', subject: 'Late pickup \u2014 Sector 22 route', from: 'Mr. Raj Sharma (Parent)', priority: 'High', priorityCls: 'critical', status: 'In Progress', statusCls: 'warning', assigned: 'Route Manager', age: '5h' },
+        { id: 'TKT-2026-0087', subject: 'Fee receipt not generated', from: 'Mrs. Anita Reddy (Parent)', priority: 'Medium', priorityCls: 'warning', status: 'Open', statusCls: 'critical', assigned: 'Finance Team', age: '1d' },
+        { id: 'TKT-2026-0086', subject: 'GPS device malfunction Bus 505', from: 'Anil Patil (Driver)', priority: 'High', priorityCls: 'critical', status: 'In Progress', statusCls: 'warning', assigned: 'IT Team', age: '1d' },
+        { id: 'TKT-2026-0085', subject: 'Request for route change', from: 'Mr. Patel (Parent)', priority: 'Low', priorityCls: 'good', status: 'Open', statusCls: 'critical', assigned: 'Route Manager', age: '2d' },
+        { id: 'TKT-2026-0084', subject: 'Bus seat damaged \u2014 Bus 707', from: 'Kumar Naidu (Driver)', priority: 'Medium', priorityCls: 'warning', status: 'In Progress', statusCls: 'warning', assigned: 'Maintenance Team', age: '2d' },
+        { id: 'TKT-2026-0083', subject: 'Monthly pass not activated', from: 'Mrs. Nair (Parent)', priority: 'Low', priorityCls: 'good', status: 'Resolved', statusCls: 'good', assigned: 'Admin', age: '3d' },
+        { id: 'TKT-2026-0082', subject: 'Emergency button test failed', from: 'Safety Officer', priority: 'High', priorityCls: 'critical', status: 'In Progress', statusCls: 'warning', assigned: 'IT Team', age: '3d' },
+    ];
+    const ht = document.querySelector('#helpdeskTable tbody');
+    if (ht) ht.innerHTML = tickets.map(t => `<tr>
+        <td style="font-weight:600;color:var(--primary-600)">${t.id}</td>
+        <td>${t.subject}</td>
+        <td style="font-size:12px">${t.from}</td>
+        <td><span class="status-badge ${t.priorityCls}"><span class="status-dot"></span>${t.priority}</span></td>
+        <td><span class="status-badge ${t.statusCls}"><span class="status-dot"></span>${t.status}</span></td>
+        <td style="font-size:12px">${t.assigned}</td>
+        <td>${t.age}</td>
+    </tr>`).join('');
+}
+
+function initHelpdeskCharts() {
+    const c = gc();
+    if (!CI.tr) {
+        const ctx = document.getElementById('ticketResolutionChart');
+        if (ctx) {
+            CI.tr = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    datasets: [
+                        { label: 'Opened', data: [5, 3, 6, 4, 3, 2], borderColor: c.red, tension: 0.4, pointRadius: 4, borderWidth: 2.5 },
+                        { label: 'Resolved', data: [4, 5, 3, 5, 4, 3], borderColor: c.green, backgroundColor: c.greenBg, fill: true, tension: 0.4, pointRadius: 4, borderWidth: 2.5 }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: lp(c) }, scales: ds() }
+            });
+        }
+    }
+    if (!CI.tkc) {
+        const ctx2 = document.getElementById('ticketCategoryChart');
+        if (ctx2) {
+            CI.tkc = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Route Issues', 'Bus Maintenance', 'Fee/Billing', 'Safety', 'IT/Device', 'Other'],
+                    datasets: [{ data: [25, 20, 18, 15, 12, 10], backgroundColor: [c.blue, c.amber, c.green, c.red, c.purple, c.teal], borderWidth: 0, spacing: 3 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { color: c.text, padding: 10, usePointStyle: true, pointStyle: 'circle', font: { size: 11 } } } } }
+            });
+        }
+    }
 }

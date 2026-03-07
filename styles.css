@@ -417,7 +417,7 @@ ul {
     border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
-    padding: 0 24px;
+    padding: 0 32px 0 36px;
     position: sticky;
     top: 0;
     z-index: 50;
@@ -607,7 +607,7 @@ ul {
 /* ---- Page Content ---- */
 .page-content {
     flex: 1;
-    padding: 24px;
+    padding: 28px 32px 28px 44px;
 }
 
 .page-header {
@@ -1625,7 +1625,7 @@ ul {
     }
 
     .page-content {
-        padding: 16px;
+        padding: 18px 16px;
     }
 
     .page-header {
@@ -3014,12 +3014,14 @@ ul {
     .dash-grid {
         grid-template-columns: 1fr;
     }
+
     .span-3,
     .span-4,
     .span-6,
     .span-8 {
         grid-column: span 12;
     }
+
     .financial-grid {
         grid-template-columns: 1fr;
     }
@@ -3029,6 +3031,7 @@ ul {
     .kpi-tiles {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
     .quick-actions-grid {
         grid-template-columns: 1fr;
     }
